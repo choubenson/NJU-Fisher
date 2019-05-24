@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+  <image class='avatar' src="/images/avatar.png"></image>
+  <text class="userName">{{userName}}</text>
+  <view class="divLine1"></view>
+  <block>
+    <text class='ding_dan1'>全部订单</text>
+    <navigator url="{{collectedUrl}}"  class='ding_dan2'>
+      <text>查看所有订单 ></text>
+    </navigator>
+  </block>
+  <view class="divLine2"></view>
+  <view>
+    <navigator url="{{collectedUrl}}" class='classify_Nav'>
+      <image class="classify_image" src="/images/GeRen/collected.png" mode='aspectFit'></image>
+    </navigator>
+    <navigator url="{{releasedUrl}}" class='classify_Nav'>
+      <image class="classify_image" src="/images/GeRen/fabu.png" mode='aspectFit'></image>
+    </navigator>
+  </view>
+</view>

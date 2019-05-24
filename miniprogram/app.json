@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/shouye/shouye",
+    "pages/index/index",
+    "pages/userConsole/userConsole",
+    "pages/storageConsole/storageConsole",
+    "pages/databaseGuide/databaseGuide",
+    "pages/addFunction/addFunction",
+    "pages/deployFunctions/deployFunctions",
+    "pages/chooseLib/chooseLib",
+    "pages/openapi/openapi",
+    "pages/openapi/serverapi/serverapi",
+    "pages/openapi/callback/callback",
+    "pages/openapi/cloudid/cloudid",
+    "pages/fenlei/fenlei",
+    "pages/detail/detail",
+    "pages/sousuo/sousuo",
+    "pages/GeRen/GeRen",
+    "pages/announce/announce",
+    "pages/collected/collected",
+    "pages/modify/modify",
+    "pages/released/released"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#8B008B",
+    "navigationBarTitleText": "NJU-Fisher",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "#F5F5F5",
+    "color": "#C0C0C0",
+    "selectedColor": "#8B008B",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/shouye/shouye",
+        "text": "首页",
+        "iconPath": "images/TabBar/shouye.png",
+        "selectedIconPath": "images/TabBar/shouye.png"
+      },
+      {
+        "pagePath": "pages/announce/announce",
+        "text": "发布",
+        "iconPath": "images/TabBar/fabu.png",
+        "selectedIconPath": "images/TabBar/fabu3.png"
+      },
+      {
+        "pagePath": "pages/GeRen/GeRen",
+        "text": "个人",
+        "iconPath": "images/TabBar/wode.png",
+        "selectedIconPath": "images/TabBar/wode.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

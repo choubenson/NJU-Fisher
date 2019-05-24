@@ -1,0 +1,34 @@
+<!--miniprogram/pages/fenlei/fenlei.wxml-->
+
+<view class="container">
+  <view hidden="{{loading}}" class="hintMsg">以下是"{{type}}"的分类结果~ :) </view>
+
+  <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
+
+    <view id="body_container">
+    
+      <loading hidden="{{!loading}}">加载中...</loading>
+      <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
+        <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
+          <view class="itemlist"> 
+            <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+            <view class='item_view'>
+              <view class="itemTitle">{{item.title}}</view>
+              <view class="campus_view">{{item.campus}}</view>
+              <view class="money_view">
+                <view class="itemNewPrice">￥{{item.presentPrice}}</view>
+                <view class="itemOldPrice">￥{{item.originPrice}}</view>
+                <view class="itemKind">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </block>
+    
+
+      
+    
+    </view>
+  </scroll-view>
+
+</view>

@@ -1,0 +1,120 @@
+#scrollView{
+  background-color: #f6f8f9;
+}
+.avatar{
+  width: 108rpx;
+  height: 108rpx;
+  margin: 15rpx;
+  border-radius: 50%;
+}
+.box{
+  max-width: 725rpx;
+  background-color: #ffffff;
+  margin: 10rpx;
+  border: 1rpx solid #bbbbbb;
+  border-radius: 10rpx;
+  display: flex;
+  padding: 3rpx;
+}
+.label{
+  font-size: 23rpx;
+  border-radius: 9rpx;
+  display: inline;
+  padding: 1rpx;
+  padding-left: 10rpx;
+  padding-right: 10rpx;
+  max-height: 36rpx;
+}
+.otherInfo{
+  margin-top: 10rpx; 
+}
+#nickname{
+  margin-left: 38rpx;
+  font-size: 36rpx;
+}
+#hasSold{
+  margin-left: 25rpx;
+  background-color: #b875b5;
+  color: #73116f;
+}
+#campus{
+  margin-left: 25rpx;
+  background-color: #f6f8f9;
+  color: #101010;
+}
+#onDate{
+  color: #777777;
+  font-size: 30rpx;
+  margin-left: 38rpx;
+  margin-top: 20rpx;
+}
+#contactInfo{
+  padding: 16rpx;
+}
+.normalText{
+  font-size: 28rpx;
+  line-height: 150%;
+  letter-spacing: 5%;
+}
+#contactLabel{
+  background-color: #777777;
+  color: #ffffff;
+  margin-left: 38rpx;
+  margin-top: 6rpx;
+}
+#introduce{
+  display: block;
+}
+#prices{
+  border-style: none;
+  display: inline;
+}
+#otherInfo2{
+  display: inline;
+}
+#presentPrice{
+  color: #e51c23;
+  margin-left: 20rpx;
+}
+#originalPrice{
+  color: #777777;
+  margin-left: 20rpx;
+  font-size: 24rpx;
+  text-decoration: line-through;
+}
+#typeLabel{
+  margin-right: 24rpx;
+  margin-top: 16rpx;
+  background-color: #89efce;
+  color: #259b24;
+  float: right;
+}
+#likeIcon{
+  height: 30rpx;
+  width: 30rpx;
+  margin-top: 16rpx;
+  margin-right: 24rpx;
+  float: right;
+}
+.yes{
+  src: '/images/detail/heart_red.png';
+}
+.no{
+  src: '/images/detail/heart_grey.png';
+}
+#title{
+  margin-left: 36rpx;
+  margin-top: 15rpx;
+  font-weight: bold;
+}
+#itemDetail{
+  text-indent: 56rpx;
+  margin-top: 15rpx;
+  margin-left: 36rpx;
+  margin-right: 36rpx;
+  margin-bottom: 15rpx;
+}
+.detailImg{
+  max-width: 690rpx;
+  margin-left: 30rpx;
+}

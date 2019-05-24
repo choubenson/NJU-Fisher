@@ -1,0 +1,38 @@
+<view class='holder'>
+  <scroll-view id='scrollView' scroll-top>
+    <view class='box'>
+      <image class='avatar' src='{{commodity.avatar}}'></image>
+      <view id='otherInfo'>
+        <view>
+          <text id='nickname'>{{commodity.name}}</text>
+          <view class='label' id='hasSold'>
+            发布过{{hasSold}}样物品
+          </view>
+          <view class='label' id='campus'>
+            {{commodity.campus}}
+          </view>
+        </view>
+        <view id='onDate'>发布于{{commodity.date}}</view>
+      </view>
+    </view>
+    <view class='box' id='contactInfo'>
+      <text class='normalText'>联系方式： {{commodity.contactNumber}}</text>
+      <view class='label' id='contactLabel'>{{commodity.contactWay}}</view>
+    </view>
+    <view class='box' id='introduce'>
+      <view class='box' id='prices'>
+        <text id='presentPrice'>¥{{commodity.presentPrice}}</text>
+        <view id='otherInfo2'>
+          <text id='originalPrice'>¥{{commodity.originPrice}}</text>
+          <view class='label' id='typeLabel'>{{commodity.type}}</view>
+          <image id='likeIcon' bindtap='likeButtonTap' src='{{likesrc}}'></image>
+        </view>       
+      </view>
+      <view id='title' class='normalText'>{{commodity.title}}</view>
+      <view class='normalText' id='itemDetail'>{{commodity.detail}}</view>
+      <block wx:for='{{commodity.commodityPictures}}' wx:key>
+        <image src="{{item}}" class='detailImg'></image>
+      </block>      
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,87 @@
+<!--miniprogram/pages/shouye/shouye.wxml-->
+
+<view class="container">
+  <view class="search" bind>
+    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder'></input>
+  </view>
+  <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
+    <view id="body_head1">
+      <view id="body_head2">
+        <navigator url="{{sousuoUrl}}?itemType=数码" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
+        </navigator>
+        <navigator url="{{sousuoUrl}}?itemType=图书" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/tushu.png" mode='aspectFit'></image>
+        </navigator>
+        <navigator url="{{sousuoUrl}}?itemType=美妆" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/meizhuang.png" mode='aspectFit'></image>
+        </navigator>
+        <navigator url="{{sousuoUrl}}?itemType=游戏" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/youxi.png" mode='aspectFit'></image>
+        </navigator>
+        <navigator url="{{sousuoUrl}}?itemType=服饰" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/fushi.png" mode='aspectFit'></image>
+        </navigator>
+        <navigator url="{{sousuoUrl}}?itemType=生活" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/shenghuo.png" mode='aspectFit'></image>
+        </navigator>
+        <navigator url="{{sousuoUrl}}?itemType=其他" class="classify_Nav">
+          <image class="classify_image" src="/images/shouye/qita.png" mode='aspectFit'></image>
+        </navigator>
+        
+        
+
+        <view id="body_head3">
+          <view class="classify_text">数码</view>
+          <view class="classify_text">图书</view>
+          <view class="classify_text">美妆</view>
+          <view class="classify_text">游戏</view>
+          <view class="classify_text">服饰</view>
+          <view class="classify_text">生活</view>
+          <view class="classify_text">其他</view>
+        </view>
+
+      </view>
+      
+    </view>
+
+
+    <view id="body_container">
+
+      <loading hidden="{{!loading}}">加载中...</loading>
+      <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
+        <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
+          <view class="itemlist"> 
+            <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+            <view class='item_view'>
+              <view class="itemTitle">{{item.title}}</view>
+              <view class="campus_view">{{item.campus}}</view>
+              <view class="money_view">
+                <view class="itemNewPrice">￥{{item.presentPrice}}</view>
+                <view class="itemOldPrice">￥{{item.originPrice}}</view>
+                <view class="itemKind">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </block>
+
+      <view class="itemlist" bindtap='myTap'> 
+        <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
+        <view class='item_view'>
+          <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 fff</view>
+          <view class="campus_view">仙林校区dd</view>
+          <view class="money_view">
+            <view class="itemNewPrice">￥998</view>
+            <view class="itemOldPrice">￥3000</view>
+            <view class="itemKind">数码</view>
+          </view>
+        </view>
+      </view>
+
+      
+    
+    </view>
+  </scroll-view>
+
+</view>
