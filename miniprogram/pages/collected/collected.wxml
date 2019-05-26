@@ -1,90 +1,35 @@
-<view class='classify_Nav'>
-  <image class="classify_image" src="/images/dingdan/collected_1.png" mode='aspectFit'></image>
-</view>
-<navigator url="{{releasedUrl}}" class='classify_Nav' open-type='redirect'>
-  <image src="/images/dingdan/fabu_1.png"  class="classify_image" mode='aspectFit'></image>
-</navigator>
-<view class="divLine"></view>
+<!--miniprogram/pages/collected/collected.wxml-->
+<view class="container">
+  
+  <view hidden="{{loading}}" class="hintMsg">以下是您的收藏~ :) </view>
 
-<view id="container">
-  <navigator url='{{itemDetailUrl}}' >
-    <view class="itemlist"> 
-      <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-      <view class='item_view'>
-        <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 fff</view>
-        <view class="campus_view">仙林校区dd</view>
-        <view class="money_view">
-          <view class="itemNewPrice">￥998</view>
-          <view class="itemOldPrice">￥3000</view>
-          <view class="itemKind">数码</view>
-        </view>
-      </view>
-    </view>
-  </navigator>
+  <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
 
-  <view class="itemlist"> 
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-    <view class='item_view'>
-      <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 fff</view>
-      <view class="campus_view">仙林校区dd</view>
-      <view class="money_view">
-        <view class="itemNewPrice">￥998</view>
-        <view class="itemOldPrice">￥3000</view>
-        <view class="itemKind">数码</view>
-      </view>
-    </view>
-  </view>
+    <view id="body_container">
+    
+      <loading hidden="{{!loading}}">加载中...</loading>
+      <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
+        <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
+          <view class="itemlist"> 
+            <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+            <view class='item_view'>
+              <view class="itemTitle">{{item.title}}</view>
+              <view class="campus_view">{{item.campus}}</view>
+              <view class="money_view">
+                <view class="itemNewPrice">￥{{item.presentPrice}}</view>
+                <view class="itemOldPrice">￥{{item.originPrice}}</view>
+                <view class="itemKind">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </block>
+    
 
-  <view class="itemlist"> 
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-    <view class='item_view'>
-      <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 </view>
-      <view class='campus_view'>仙林校区</view>
-      <view class='money_view'>
-        <view class='itemNewPrice'>￥998</view>
-        <view class='itemOldPrice'>￥3000</view>
-        <view class="itemKind">数码</view>
-      </view>
+      
+    
     </view>
-  </view>
+  </scroll-view>
 
-  <view class="itemlist"> 
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-    <view class='item_view'>
-      <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 </view>
-      <view class='campus_view'>仙林校区</view>
-      <view class='money_view'>
-        <view class='itemNewPrice'>￥998</view>
-        <view class='itemOldPrice'>￥3000</view>
-        <view class="itemKind">数码</view>
-      </view>
-    </view>
-  </view>
-
-  <view class="itemlist"> 
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-    <view class='item_view'>
-      <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 </view>
-      <view class='campus_view'>仙林校区</view>
-      <view class='money_view'>
-        <view class='itemNewPrice'>￥998</view>
-        <view class='itemOldPrice'>￥3000</view>
-        <view class="itemKind">数码</view>
-      </view>
-    </view>
-  </view>
-
-  <view class="itemlist"> 
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-    <view class='item_view'>
-      <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新hgjhgj </view>
-      <view class='campus_view'>仙林校区aafg</view>
-      <view class='money_view'>
-        <view class='itemNewPrice'>￥998</view>
-        <view class='itemOldPrice'>￥3000</view>
-        <view class="itemKind">数码</view>
-      </view>
-    </view>
-  </view>
      
 </view>

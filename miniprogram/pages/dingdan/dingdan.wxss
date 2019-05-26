@@ -1,20 +1,34 @@
-.display{
+/* miniprogram/pages/dingdan/dingdan.wxss */
+.page {
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+  
+.swiper-tab {
   display: flex;
-  margin-top: 10rpx; 
-  justify-content: space-around;
+  flex-direction: row;
+  line-height: 80rpx;
+  border-bottom: 2rpx solid #777;
 }
-.released{
-  color: rgb(202, 34, 180);   
-  text-decoration: underline;
-}
-
-.divLine{
- background: rgb(168, 170, 164);
- width: 100%;
- height: 4rpx;
- margin-top: 10rpx; 
+  
+.tab-item {
+  width: 50%;
+  text-align: center;
+  font-size: 28rpx;
+  color: #777;
 }
 
+
+swiper {
+  
+  background: #dfdfdf;
+  display: flex;
+}
+
+.on {
+  color: #8B008B;
+  border-bottom: 5rpx solid #8B008B;
+}
 .hintMsg{
   margin-top: 4rpx;
   font-size: 20rpx;
@@ -108,33 +122,49 @@
   background-color: rgba(105, 102, 102, 0.301);
 }
 
+
 .button1{
   width:fit-content;
-  border-radius:15rpx;
-  background-color: rgb(94, 240, 81);
-  font-size: 30rpx;
+  border-radius:35rpx;
+  background-color: #d3289abe;
+  font-size: 20rpx;
   color: white;
   display: inline;
   
-  padding:7rpx;
+  
   padding-left:10rpx;
   padding-right:10rpx;
   position:absolute;
-  left:200rpx;
-  top: -30rpx;
+  left:300rpx;
+  top: 5rpx;
 }
 .button2{
   width:fit-content;
-  border-radius:15rpx;
-  background-color: rgb(219, 26, 68);
-  font-size: 30rpx;
+  border-radius:35rpx;
+  background-color: #d3289abe;
+  font-size: 20rpx;
   color: white;
   display: inline;
   
-  padding:7rpx;
+  
   padding-left:10rpx;
   padding-right:10rpx;
   position:absolute;
-  left:350rpx;
-  top: -30rpx;
+  left:365rpx;
+  top: 5rpx;
+}
+.button3{
+  width:fit-content;
+  border-radius:35rpx;
+  background-color: #d3289abe;
+  font-size: 20rpx;
+  color: white;
+  display: inline;
+  
+  
+  padding-left:10rpx;
+  padding-right:10rpx;
+  position:absolute;
+  left:430rpx;
+  top: 5rpx;
 }

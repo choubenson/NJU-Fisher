@@ -3,7 +3,7 @@
   margin-top: 10rpx; 
   justify-content: space-around;
 }
-.released{
+.collected{
   color: rgb(202, 34, 180);   
   text-decoration: underline;
 }
@@ -15,81 +15,6 @@
  margin-top: 10rpx; 
 }
 
-.hintMsg{
-  margin-top: 4rpx;
-  font-size: 20rpx;
-  color:#808080;
-
-}
-
-
-
-
-.item_view{
-  width:500rpx;
-  flex-direction: column-reverse;
-  margin-right:30rpx;
-  position:relative;
-  
-}
-
-.money_view{
-  flex-direction: row;
-  margin-left: 7rpx;
- 
-  position: absolute;
-  bottom: 20rpx;
-  
-}
-.itemTitle{
-  margin: 10rpx;
-  margin-top: 10rpx;
-  font-size: 30rpx;
-  display: -webkit-box ;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp:2; 
-  
-  
-}
-.campus_view{
-  font-size: 23rpx;
-  margin-left: 10rpx;
-  
-  position:absolute;
-  bottom:65rpx;
-  color:#808080;
-}
-
-.itemNewPrice{
-  width:fit-content;
-  margin-right: 20rpx;
-  font-size: 30rpx;
-  color: red;
-  display: inline;
-}
-.itemOldPrice{
-  width:fit-content;
-  
-  text-decoration: line-through;
-  font-size: 25rpx;
-  display: inline;
-}
-.itemKind{
-  width:fit-content;
-  border-radius:15rpx;
-  background-color: #90EE90;
-  font-size: 23rpx;
-  display: inline;
-  
-  padding:7rpx;
-  padding-left:10rpx;
-  padding-right:10rpx;
-  position:absolute;
-  left:420rpx;
-}
 .itemlist{
   width:100%;
   height:210rpx;
@@ -105,36 +30,72 @@
   margin-left: 10rpx;
   margin-right: 10rpx;
   margin-bottom: 5rpx;
-  background-color: rgba(105, 102, 102, 0.301);
+  background-color: black;
 }
 
-.button1{
-  width:fit-content;
-  border-radius:15rpx;
-  background-color: rgb(94, 240, 81);
-  font-size: 30rpx;
-  color: white;
-  display: inline;
+.item_view{
+  width:500rpx;
+  flex-direction: column-reverse;
+  margin-right:30rpx;
+  position:relative;
   
-  padding:7rpx;
-  padding-left:10rpx;
-  padding-right:10rpx;
-  position:absolute;
-  left:200rpx;
-  top: -30rpx;
 }
-.button2{
+
+.itemTitle{
+  margin: 10rpx;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  display: -webkit-box ;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;   
+}
+
+.campus_view{
+  font-size: 23rpx;
+  margin-left: 10rpx;
+  
+  position:absolute;
+  bottom:65rpx;
+  color:#808080;
+}
+
+.money_view{
+  flex-direction: row;
+  margin-left: 7rpx;
+ 
+  position: absolute;
+  bottom: 20rpx; 
+}
+
+.itemNewPrice{
+  width:fit-content;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  color: red;
+  display: inline;
+}
+
+.itemOldPrice{
+  width:fit-content;
+  
+  text-decoration: line-through;
+  font-size: 25rpx;
+  display: inline;
+}
+
+.itemKind{
   width:fit-content;
   border-radius:15rpx;
-  background-color: rgb(219, 26, 68);
-  font-size: 30rpx;
-  color: white;
+  background-color: #90EE90;
+  font-size: 23rpx;
   display: inline;
   
   padding:7rpx;
   padding-left:10rpx;
   padding-right:10rpx;
   position:absolute;
-  left:350rpx;
-  top: -30rpx;
+  left:420rpx;
 }

@@ -1,48 +1,40 @@
-<!--pages/released/released.wxml-->
-<navigator url="{{collectedUrl}}" class='classify_Nav' open-type='redirect'>
-  <image class="classify_image" src="/images/dingdan/collected_2.png" mode='aspectFit'></image>
-</navigator>
-<view class='classify_Nav'>
-  <image src="/images/dingdan/fabu_2.png"  class="classify_image" mode='aspectFit'></image>
-</view>
-<view class="divLine"></view>
-
 <view id="container">
-  <view class="itemlist">
-    <navigator url='{{itemDetailUrl}}'>
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
+  <view class='display'>
+    
+    <text class='released' bindtap='changeToUnsold'>未卖出</text> 
+    <navigator url="{{soldUrl}}" open-type='redirect'>
+      <text bindtap='changeToSoldout'>已卖出</text> 
     </navigator>
-    <view class='item_view'>
-      <navigator url='{{itemDetailUrl}}'>
-        <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 fff</view>
-        <view class="campus_view">仙林校区dd</view>
-      </navigator>
-      <view class="money_view">
-        <view class="itemNewPrice">￥998</view>
-        <view class="itemOldPrice">￥3000</view>
-        <button id="modify" bindtap='modify' class="button1">修改信息</button>
-        <button id="deleteGoods" bindtap='deleteGoods' class="button2">商品下架</button>
-      </view>
-    </view>
   </view>
-  
+  <view class="divLine"></view>
 
-  <view class="itemlist">
-    <navigator url='{{itemDetailUrl}}'>
-    <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-    </navigator>
-    <view class='item_view'>
-      <navigator url='{{itemDetailUrl}}'>
-        <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 fff</view>
-        <view class="campus_view">仙林校区dd</view>
-      </navigator>
-      <view class="money_view">
-        <view class="itemNewPrice">￥998</view>
-        <view class="itemOldPrice">￥3000</view>
-        <button id="modify" bindtap='modify' class="button1">修改信息</button>
-        <button id="deleteGoods" bindtap='deleteGoods' class="button2">商品下架</button>
-      </view>
+
+  <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
+
+    <view id="body_container">
+    
+      <loading hidden="{{!loading}}">加载中...</loading>
+      <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
+        <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
+          <view class="itemlist"> 
+            <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+            <view class='item_view'>
+              <view class="itemTitle">{{item.title}}</view>
+              <view class="campus_view">{{item.campus}}</view>
+              <view class="money_view">
+                <view class="itemNewPrice">￥{{item.presentPrice}}</view>
+                <view class="itemOldPrice">￥{{item.originPrice}}</view>
+                <view class="itemKind">{{item.type}}</view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </block>
+    
+
+      
+    
     </view>
-  </view>
+  </scroll-view>
 
 </view>

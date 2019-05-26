@@ -1,20 +1,19 @@
-//index.js
-
+// pages/bought/bought.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    userName: 'userName',
-    collectedUrl: '/pages/collected/collected',
-    releasedUrl: '/pages/dingdan/dingdan',
+    releasedUrl: '/pages/released/released',
+    itemDetailUrl: '/pages/detail/detail',
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var app = getApp();
-    this.setData({
-      userName: app.globalData.userInfo.nickName,
-      avatarUrl: app.globalData.userInfo.avatarUrl
-    });
+
   },
 
   /**
@@ -42,7 +41,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    
   },
 
   /**

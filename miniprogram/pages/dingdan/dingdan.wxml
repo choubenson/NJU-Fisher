@@ -1,0 +1,65 @@
+<!--miniprogram/pages/dingdan/dingdan.wxml-->
+<view class="page">
+  
+  <!--顶部导航栏-->
+  <view class="swiper-tab">
+    <view class="tab-item {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">未卖出</view>
+    <view class="tab-item {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">已卖出</view>
+    
+  </view>
+  
+  <!--内容主体-->
+  <swiper class="swiper" style="height: {{windowHeight-40 }}px" current="{{currentTab}}" duration="200" bindchange="swiperChange">
+    <swiper-item>
+      <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
+        <view id="body_container">
+          <loading hidden="{{!loading}}">加载中...</loading>
+          <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
+            <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
+              <view class="itemlist"> 
+                <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+                <view class='item_view'>
+                  <view class="itemTitle">{{item.title}}</view>
+                  <view class="campus_view">{{item.campus}}</view>
+                  <view class="money_view">
+                    <view class="itemNewPrice">￥{{item.presentPrice}}</view>
+                    <view class="itemOldPrice">￥{{item.originPrice}}</view>
+                     <button id="modify" bindtap='modify' class="button1">修改</button>
+                     <button id="deleteGoods" bindtap='deleteGoods' class="button2">下架</button>
+                     <button id="finish" bindtap='modify' class="button3">完成</button>
+                    
+                  </view>
+                </view>
+              </view>
+            </navigator>
+          </block>     
+        </view>
+      </scroll-view>
+    </swiper-item>
+
+    <swiper-item>
+      <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
+        <view id="body_container">
+          <loading hidden="{{!loading}}">加载中...</loading>
+          <block hidden="{{loading}}" wx:for="{{items_soldout}}" wx:key>
+            <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
+              <view class="itemlist"> 
+                <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+                <view class='item_view'>
+                  <view class="itemTitle">{{item.title}}</view>
+                  <view class="campus_view">{{item.campus}}</view>
+                  <view class="money_view">
+                    <view class="itemNewPrice">￥{{item.presentPrice}}</view>
+                    <view class="itemOldPrice">￥{{item.originPrice}}</view>
+                    <view class="itemKind">{{item.type}}</view>
+                  </view>
+                </view>
+              </view>
+            </navigator>
+          </block>     
+        </view>
+      </scroll-view>
+    </swiper-item>
+    
+  </swiper>
+</view>

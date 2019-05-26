@@ -29,9 +29,10 @@ Page({
     //删除收藏记录
     else{
       wx.cloud.callFunction({
-        name: 'removeShouCang',
+        name: 'removeSC',
         data: {
-          commodityId: this.data.commodity._id
+          commodityId: this.data.commodity._id,
+          openId: this.data.openId
         }
       })
       this.setData({ likesrc: '/images/detail/heart_grey.png' });
@@ -47,12 +48,14 @@ Page({
     //获取云数据库
     const db = wx.cloud.database();
     //获取用户openid
-    wx.cloud.callFunction({
-      name: 'getId',
-      complete: res => {
-        openId = res.OPENID;
-      }
-    });
+    var app = getApp();
+    this.setData({openId: app.globalData.openId})
+    // await wx.cloud.callFunction({
+    //   name: 'getId',
+    //   complete: res => {
+    //     this.setData({openId: res.result.openid});
+    //   }
+    // });
     //加载商品信息
     await db.collection('shangpin').doc(options._id).get().then(
       res => {
@@ -67,15 +70,14 @@ Page({
     );
     //加载用户收藏信息
     var n = await db.collection('shoucang').where({
-      _openid: openId,
+      _openid: this.data.openId,
       commodityId: this.data.commodity._id
     }).count();
     this.setData({ isLike: (n.total == 0 ? 0 : 1)});
     if (this.data.isLike==1)
       this.setData({ likesrc: '/images/detail/heart_red.png' });
     else
-      this.setData({ likesrc: '/images/detail/heart_grey.png' });    
-    
+      this.setData({ likesrc: '/images/detail/heart_grey.png' });        
   },
 
   /**

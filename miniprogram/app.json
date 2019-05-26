@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/shouye/shouye",
     "pages/index/index",
+    "pages/shouye/shouye",    
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
@@ -19,7 +19,8 @@
     "pages/announce/announce",
     "pages/collected/collected",
     "pages/modify/modify",
-    "pages/released/released"
+    "pages/released/released",
+    "pages/dingdan/dingdan"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

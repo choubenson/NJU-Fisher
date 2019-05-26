@@ -1,21 +1,79 @@
-.classify_image{
-  max-width:150rpx;
-  max-height:150rpx;
-  margin-left: 150rpx;
-  margin-top: -20rpx;
+/* miniprogram/pages/collected/collected.wxss */
+.hintMsg{
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color:#808080;
+
 }
 
-.classify_Nav{
+
+
+
+.item_view{
+  width:500rpx;
+  flex-direction: column-reverse;
+  margin-right:30rpx;
+  position:relative;
+  
+}
+
+.money_view{
+  flex-direction: row;
+  margin-left: 7rpx;
+ 
+  position: absolute;
+  bottom: 20rpx;
+  
+}
+.itemTitle{
+  margin: 10rpx;
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  display: -webkit-box ;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2; 
+  
+  
+}
+.campus_view{
+  font-size: 23rpx;
+  margin-left: 10rpx;
+  
+  position:absolute;
+  bottom:65rpx;
+  color:#808080;
+}
+
+.itemNewPrice{
+  width:fit-content;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  color: red;
   display: inline;
 }
-
-.divLine{
- background: rgb(168, 170, 164);
- width: 100%;
- height: 4rpx;
- margin-top: -30rpx; 
+.itemOldPrice{
+  width:fit-content;
+  
+  text-decoration: line-through;
+  font-size: 25rpx;
+  display: inline;
 }
-
+.itemKind{
+  width:fit-content;
+  border-radius:15rpx;
+  background-color: #90EE90;
+  font-size: 23rpx;
+  display: inline;
+  
+  padding:7rpx;
+  padding-left:10rpx;
+  padding-right:10rpx;
+  position:absolute;
+  left:420rpx;
+}
 .itemlist{
   width:100%;
   height:210rpx;
@@ -31,72 +89,5 @@
   margin-left: 10rpx;
   margin-right: 10rpx;
   margin-bottom: 5rpx;
-  background-color: black;
-}
-
-.item_view{
-  width:500rpx;
-  flex-direction: column-reverse;
-  margin-right:30rpx;
-  position:relative;
-  
-}
-
-.itemTitle{
-  margin: 10rpx;
-  margin-top: 10rpx;
-  font-size: 30rpx;
-  display: -webkit-box ;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp:2;   
-}
-
-.campus_view{
-  font-size: 23rpx;
-  margin-left: 10rpx;
-  
-  position:absolute;
-  bottom:65rpx;
-  color:#808080;
-}
-
-.money_view{
-  flex-direction: row;
-  margin-left: 7rpx;
- 
-  position: absolute;
-  bottom: 20rpx; 
-}
-
-.itemNewPrice{
-  width:fit-content;
-  margin-right: 20rpx;
-  font-size: 30rpx;
-  color: red;
-  display: inline;
-}
-
-.itemOldPrice{
-  width:fit-content;
-  
-  text-decoration: line-through;
-  font-size: 25rpx;
-  display: inline;
-}
-
-.itemKind{
-  width:fit-content;
-  border-radius:15rpx;
-  background-color: #90EE90;
-  font-size: 23rpx;
-  display: inline;
-  
-  padding:7rpx;
-  padding-left:10rpx;
-  padding-right:10rpx;
-  position:absolute;
-  left:420rpx;
+  background-color: rgba(105, 102, 102, 0.301);
 }

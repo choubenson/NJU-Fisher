@@ -1,13 +1,13 @@
 /**index.wxss**/
 .avatar{
-  width: 108rpx;
-  height: 108rpx;
-  margin: -150rpx;
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 20px;
   border-radius: 50%;
 }
 
 .userName {
-  margin-top: 70px;
+  margin-top: 10px;
   font-size: 80%;
 }
 
@@ -25,14 +25,14 @@
  margin-top: 15rpx; 
 }
 .ding_dan1{
-  font-size: 70%;
+  font-size: 30rpx;
   font-weight: bold;
   margin-top: 20rpx;
   margin-left: -560rpx;
 }
 
 .ding_dan2{
-  font-size: 60%;
+  font-size: 25rpx;
   margin-top: -30rpx;
   margin-right: -500rpx;
   color: rgb(188, 189, 186);
@@ -44,7 +44,7 @@
 }
 
 .classify_image{
-  max-width:150rpx;
-  max-height:150rpx;
-  margin-top: 30rpx;
+  max-width:120rpx;
+  max-height:120rpx;
+  margin-top: 50rpx;
 }

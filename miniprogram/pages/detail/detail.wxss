@@ -62,6 +62,12 @@
   margin-left: 38rpx;
   margin-top: 6rpx;
 }
+.isSold{
+  margin-top: 6rpx;
+  margin-left: 38rpx;
+  color: #e51c23;
+  background-color: #ffb6c1;
+}
 #introduce{
   display: block;
 }
