@@ -126,7 +126,7 @@ swiper {
 .button1{
   width:fit-content;
   border-radius:35rpx;
-  background-color: #d3289abe;
+  background-color: #d3289a;
   font-size: 20rpx;
   color: white;
   display: inline;
@@ -141,7 +141,7 @@ swiper {
 .button2{
   width:fit-content;
   border-radius:35rpx;
-  background-color: #d3289abe;
+  background-color: #d3289a;
   font-size: 20rpx;
   color: white;
   display: inline;
@@ -156,7 +156,7 @@ swiper {
 .button3{
   width:fit-content;
   border-radius:35rpx;
-  background-color: #d3289abe;
+  background-color: #d3289a;
   font-size: 20rpx;
   color: white;
   display: inline;
