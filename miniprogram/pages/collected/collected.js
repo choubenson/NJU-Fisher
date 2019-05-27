@@ -16,8 +16,8 @@ Page({
     itemDetailUrl: '/pages/detail/detail',
     items: [],
     loading: true,
-    
-    
+    reachBottom: false,
+    isEmpty: false,
   },
 
   /**
@@ -94,11 +94,17 @@ Page({
     console.log("Here is outside for!")
     console.log(temp);
     console.log("currentIndex is " + currentIndex);
-    this.setData({
-      items: temp[currentIndex],
-      loading: false,
-      
-    })
+    if (temp.length != 0) {
+      this.setData({
+        items: temp[currentIndex],
+        loading: false,
+        
+      })
+    }
+    else {
+      this.setData({ isEmpty: true, loading: false })
+    }
+    
     currentIndex = currentIndex + 1;
 
 
@@ -159,12 +165,17 @@ Page({
         items: itemArr,
         loading: false
       })
-
+      if (temp[currentIndex].length != MAX_LIMIT) {
+        this.setData({
+          reachBottom: true,
+        })
+      }
       currentIndex = currentIndex + 1;
     }
     else {
       this.setData({
-        loading: false
+        loading: false,
+        reachBottom: true,
       })
     }
   },

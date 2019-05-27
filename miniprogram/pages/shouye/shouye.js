@@ -15,7 +15,8 @@ Page({
     itemDetailUrl:'/pages/detail/detail',
     sousuoUrl:"/pages/fenlei/fenlei",
     items: [],
-    loading:true
+    loading:true,
+    reachBottom:false,
   },
 
   /**
@@ -28,7 +29,7 @@ Page({
     const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
     const db =  wx.cloud.database();
 
-    await db.collection('shangpin').count().then(res => { //获取数据库中shangpin集合记录的总共数目
+    await db.collection('shangpin').where({ state: 0 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
       totalSize=res.total;
     })
     
@@ -40,12 +41,12 @@ Page({
     
     for (i = 0; i < batchTimes; i++) {
       if(i!=0){  
-        await db.collection('shangpin').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {   
+        await db.collection('shangpin').where({state:0}).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {   
           temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
         })
       }
       else{  
-        await db.collection('shangpin').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+        await db.collection('shangpin').where({ state: 0 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
           temp.push(res.data);  
         })
       }
@@ -116,11 +117,18 @@ Page({
         loading: false
       })
       
-      currentIndex=currentIndex+1;
+      
+      if (temp[currentIndex].length !=MAX_LIMIT){
+        this.setData({
+          reachBottom: true,
+        })
+      }
+      currentIndex = currentIndex + 1;
     }
     else{
       this.setData({
-        loading: false
+        loading: false,
+        
       })
     }
   },

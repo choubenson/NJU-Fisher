@@ -22,6 +22,9 @@ Page({
     loading: true,
     state: 0,
     windowHeight:0,
+    reachBottom: false,
+    isEmpty1: false,
+    isEmpty2:false,
   },
   systemType() {  //获取手机屏幕高度
     wx.getSystemInfo({ 
@@ -64,6 +67,7 @@ Page({
     const db = wx.cloud.database();
     await db.collection('shangpin').where({ _openid: openId, state: 0 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
       totalSize = res.total;
+
     })
 
     console.log("unSold totalSize is " + totalSize);
@@ -113,14 +117,37 @@ Page({
       }
     }
     console.log(temp2);
+    if (temp.length != 0 && temp2.length != 0){
+      console.log("I am Here!!!")
+      this.setData({
+        items: temp[currentIndex],
+        items_soldout: temp2[currentIndex2],
+        loading: false,
 
+      })
+    }
+    else if (temp.length != 0 ) {
+      this.setData({
+        items: temp[currentIndex],
+        isEmpty2:true,
+        loading: false,
+        
+      })
+    }
+    else if (temp2.length != 0){
+      this.setData({
+        isEmpty1:true,
+        items_soldout: temp2[currentIndex2],
+        loading: false,
 
+      })
+    }
+    else {
+      console.log("Hii!!")
+      this.setData({ isEmpty1: true,isEmpty2:true, loading: false })
+    }
 
-    this.setData({
-      items: temp[currentIndex],
-      items_soldout:temp2[currentIndex2],
-      loading: false
-    })
+    
     currentIndex = currentIndex + 1;
     currentIndex2 = currentIndex2+1;
 
@@ -162,6 +189,11 @@ Page({
         items: itemArr,
         loading: false
       })
+      if (temp[currentIndex].length != MAX_LIMIT) {
+        this.setData({
+          reachBottom: true,
+        })
+      }
 
       currentIndex = currentIndex + 1;
     }
@@ -176,12 +208,17 @@ Page({
         items_soldout: itemArr2,
         loading: false
       })
-
+      if (temp2[currentIndex2].length != MAX_LIMIT) {
+        this.setData({
+          reachBottom: true,
+        })
+      }
       currentIndex2 = currentIndex2 + 1;
     }
     else {
       this.setData({
-        loading: false
+        loading: false,
+        reachBottom: true,
       })
     }
   },
@@ -192,5 +229,47 @@ Page({
       desc: 'desc', // 分享描述
       path: 'path' // 分享路径
     }
+  },
+
+  //修改发布
+  modify: function () {
+    wx.navigateTo({
+      url: "../modify/modify"
+    })
+  },
+
+//商品下架
+  deleteGoods: function () {
+    wx.showModal({
+      title: '提示',
+      content: '确定要下架该商品吗？',
+      success: function (sm) {
+        //用户点击了确定删除
+        if (sm.confirm) {
+
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
+  //完成订单交易
+  finishTrade:function(){
+    wx.showModal({
+      title: '提示',
+      content: '已向买方确认，确定要完成该笔交易吗？',
+      success: function (sm) {
+        //用户点击了确定删除
+        if (sm.confirm) {
+          const db = wx.cloud.database();
+          db.collection('shangpin').where({_openid:openId,})
+        } else if (sm.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   }
+
+
 })
