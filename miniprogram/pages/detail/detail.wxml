@@ -1,5 +1,9 @@
 <view class='holder'>
-  <scroll-view id='scrollView' scroll-top>
+  <view class="nullHint" hidden="{{!isEmpty}}">
+    <image class="nullHintImage" src="/images/detail/kulian.png" mode='aspectFit'></image>
+    <view class='nullHintMsg' >商品已下架...</view>
+  </view>
+  <scroll-view id='scrollView' scroll-top hidden='{{isEmpty}}'>
     <view class='box'>
       <image class='avatar' src='{{commodity.avatar}}'></image>
       <view id='otherInfo'>

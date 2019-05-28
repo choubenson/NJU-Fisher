@@ -13,9 +13,9 @@
     <swiper-item>
       <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
         <view id="body_container">
-          <view class="nullHint" hidden="{{!isEmpty}}">
-            <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
-            <view class='nullHintMsg' >空空的"盒子"...</view>
+          <view class="nullHint" hidden="{{!isEmpty1}}">
+            <image class="nullHintImage" src="/images/dingdan/xiaolian.png" mode='aspectFit'></image>
+            <view class='nullHintMsg' >全部卖出啦 !</view>
           </view>
           <loading hidden="{{!loading}}">加载中...</loading>
           <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
@@ -44,9 +44,9 @@
     <swiper-item>
       <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
         <view id="body_container">
-          <view class="nullHint" hidden="{{!isEmpty}}">
-            <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
-            <view class='nullHintMsg' >空空的"盒子"...</view>
+          <view class="nullHint" hidden="{{!isEmpty2}}">
+            <image class="nullHintImage" src="/images/dingdan/biaoqing.png" mode='aspectFit'></image>
+            <view class='nullHintMsg' >还没有卖出...</view>
           </view>
           <loading hidden="{{!loading}}">加载中...</loading>
           <block hidden="{{loading}}" wx:for="{{items_soldout}}" wx:key>

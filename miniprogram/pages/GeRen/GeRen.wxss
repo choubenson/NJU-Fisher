@@ -44,7 +44,25 @@
 }
 
 .classify_image{
-  max-width:120rpx;
-  max-height:120rpx;
+  max-width:105rpx;
+  max-height:105rpx;
   margin-top: 50rpx;
+}
+
+.GRtext{
+  
+  color: #848582;
+  font-size: 29rpx;
+  display: inline;
+  
+}
+#text1{
+  margin-right: 113rpx
+}
+#text2{
+  margin-left: 105rpx;
+}
+.a{
+  
+  display: inline;
 }

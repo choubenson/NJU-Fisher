@@ -11,11 +11,15 @@
   </block>
   <view class="divLine2"></view>
   <view>
-    <navigator url="{{collectedUrl}}?itemType=收藏" class='classify_Nav'>
-      <image class="classify_image" src="/images/GeRen/collected.png" mode='aspectFit'></image>
+    <navigator url="{{collectedUrl}}?itemType=收藏" class='classify_Nav' bindtap='onTap1'>
+      <image class="classify_image" src="/images/GeRen/shoucang.png" mode='aspectFit'></image>
     </navigator>
-    <navigator url="{{releasedUrl}}" class='classify_Nav'>
-      <image class="classify_image" src="/images/GeRen/fabu.png" mode='aspectFit'></image>
+    <navigator url="{{releasedUrl}}" class='classify_Nav' bindtap='onTap2'>
+      <image class="classify_image" src="/images/GeRen/yifabu.png" mode='aspectFit'></image>
     </navigator>
+  </view>
+  <view class="a">
+    <view class='GRtext' id="text1" style='color:{{fontColor1}}'>已收藏</view>
+    <view class='GRtext' id="text2" style='color:{{fontColor2}}'>已发布</view>
   </view>
 </view>
