@@ -5,14 +5,13 @@ cloud.init()
 const db = cloud.database();
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const openId = cloud.getWXContext().OPENID;
-  try{
-    return await db.collection(event.collection)
-    .where({
-      _openid:openId,
-      commodityId: event.commodityId
+  try {
+    return await db.collection('shoucang')
+      .where({
+        _openid: event.openId,
+        commodityId: event.commodityId
       }).remove();
-  }catch(e){
+  } catch (e) {
     console.error(e);
   }
 }
