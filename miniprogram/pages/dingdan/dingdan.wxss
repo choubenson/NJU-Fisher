@@ -126,9 +126,10 @@ swiper {
 .button1{
   width:fit-content;
   border-radius:35rpx;
-  background-color: #d3289a;
+  border:#d3289a solid 1rpx;
+  background-color: white;
   font-size: 20rpx;
-  color: white;
+  color: black;
   display: inline;
   
   
@@ -136,14 +137,15 @@ swiper {
   padding-right:10rpx;
   position:absolute;
   left:300rpx;
-  top: 5rpx;
+  top: -2rpx;
 }
 .button2{
   width:fit-content;
   border-radius:35rpx;
-  background-color: #d3289a;
+  background-color: white;
+  border:#d3289a solid 1rpx;
   font-size: 20rpx;
-  color: white;
+  color: black;
   display: inline;
   
   
@@ -151,14 +153,15 @@ swiper {
   padding-right:10rpx;
   position:absolute;
   left:365rpx;
-  top: 5rpx;
+  top: -2rpx;
 }
 .button3{
   width:fit-content;
   border-radius:35rpx;
-  background-color: #d3289a;
+  border:#d3289a solid 1rpx;
+  background-color: white;
   font-size: 20rpx;
-  color: white;
+  color: black;
   display: inline;
   
   
@@ -166,5 +169,29 @@ swiper {
   padding-right:10rpx;
   position:absolute;
   left:430rpx;
-  top: 5rpx;
+  top: -2rpx;
+}
+.onPress{
+  background-color: rgba(211, 40, 154, 0.425);
+}
+.reachBottom{
+  margin-top: 4rpx;
+  margin-bottom: 4rpx;
+  font-size: 20rpx;
+  color:#808080;
+}
+.nullHint{
+  font-size: 30rpx;
+  color:#808080;
+  margin-top: 400rpx;
+}
+.nullHintImage{
+  max-width: 120rpx;
+  max-height: 120rpx;
+  margin-left: 315rpx;
+  
+}
+.nullHintMsg{
+  margin-left: 285rpx;
+  margin-top: 30rpx;
 }

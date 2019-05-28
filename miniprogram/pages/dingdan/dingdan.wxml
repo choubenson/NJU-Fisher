@@ -9,10 +9,14 @@
   </view>
   
   <!--内容主体-->
-  <swiper class="swiper" style="height: {{windowHeight-40 }}px" current="{{currentTab}}" duration="200" bindchange="swiperChange">
+  <swiper class="swiper" style="height: {{windowHeight-45 }}px" current="{{currentTab}}" duration="200" bindchange="swiperChange">
     <swiper-item>
       <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
         <view id="body_container">
+          <view class="nullHint" hidden="{{!isEmpty}}">
+            <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
+            <view class='nullHintMsg' >空空的"盒子"...</view>
+          </view>
           <loading hidden="{{!loading}}">加载中...</loading>
           <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
             <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
@@ -24,9 +28,9 @@
                   <view class="money_view">
                     <view class="itemNewPrice">￥{{item.presentPrice}}</view>
                     <view class="itemOldPrice">￥{{item.originPrice}}</view>
-                     <button id="modify" bindtap='modify' class="button1">修改</button>
-                     <button id="deleteGoods" bindtap='deleteGoods' class="button2">下架</button>
-                     <button id="finish" bindtap='modify' class="button3">完成</button>
+                    <button id="modify" catchtap='modify' class="button1" hover-stop-propagation='true' hover-class='onPress'>修改</button>
+                    <button id="deleteGoods" catchtap='deleteGoods' class="button2" hover-stop-propagation='true' hover-class='onPress'>下架</button>
+                    <button id="finish"  class="button3" catchtap='finishTrade' hover-stop-propagation='true' hover-class='onPress'>完成</button>
                     
                   </view>
                 </view>
@@ -35,11 +39,16 @@
           </block>     
         </view>
       </scroll-view>
+      <view class="reachBottom" hidden='{{!reachBottom}}'>我也是有底线的~</view>
     </swiper-item>
 
     <swiper-item>
       <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
         <view id="body_container">
+          <view class="nullHint" hidden="{{!isEmpty}}">
+            <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
+            <view class='nullHintMsg' >空空的"盒子"...</view>
+          </view>
           <loading hidden="{{!loading}}">加载中...</loading>
           <block hidden="{{loading}}" wx:for="{{items_soldout}}" wx:key>
             <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
@@ -59,6 +68,7 @@
           </block>     
         </view>
       </scroll-view>
+      <view class="reachBottom" hidden='{{!reachBottom}}'>我也是有底线的~</view>
     </swiper-item>
     
   </swiper>

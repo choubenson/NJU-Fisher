@@ -6,7 +6,10 @@
   <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
 
     <view id="body_container">
-    
+      <view class="nullHint" hidden="{{!isEmpty}}">
+        <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
+        <view class='nullHintMsg' >空空的"盒子"...</view>
+      </view>
       <loading hidden="{{!loading}}">加载中...</loading>
       <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
         <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
@@ -30,6 +33,6 @@
     
     </view>
   </scroll-view>
-
+  <view class="reachBottom" hidden='{{!reachBottom}}'>我也是有底线的~</view>
      
 </view>

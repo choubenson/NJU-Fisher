@@ -4,7 +4,7 @@
   <view class="search" bind>
     <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder'></input>
   </view>
-  <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
+  <scroll-view class="body" scroll-y="true" enable-back-to-top="true" >
     <view id="body_head1">
       <view id="body_head2">
         <navigator url="{{sousuoUrl}}?itemType=数码" class="classify_Nav">
@@ -82,6 +82,8 @@
       
     
     </view>
+    
   </scroll-view>
+  <view class="reachBottom" hidden='{{!reachBottom}}'>我也是有底线的~</view>
 
 </view>

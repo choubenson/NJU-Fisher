@@ -146,3 +146,9 @@
   margin-bottom: 5rpx;
   background-color: rgba(105, 102, 102, 0.301);
 }
+.reachBottom{
+  margin-top: 4rpx;
+  margin-bottom: 4rpx;
+  font-size: 20rpx;
+  color:#808080;
+}

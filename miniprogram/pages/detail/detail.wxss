@@ -121,6 +121,8 @@
   margin-bottom: 15rpx;
 }
 .detailImg{
-  max-width: 690rpx;
-  margin-left: 30rpx;
+  
+  width: 680rpx;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
 }

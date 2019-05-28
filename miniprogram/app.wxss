@@ -7,7 +7,7 @@
 } 
 
 button {
-  background: initial;
+  /* background: initial; */
 }
 
 button:focus{

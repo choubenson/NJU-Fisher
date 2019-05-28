@@ -33,7 +33,7 @@
       <view id='title' class='normalText'>{{commodity.title}}</view>
       <view class='normalText' id='itemDetail'>{{commodity.detail}}</view>
       <block wx:for='{{commodity.commodityPictures}}' wx:key>
-        <image src="{{item}}" class='detailImg'></image>
+        <image src="{{item}}" class='detailImg' mode='aspectFit'></image>
       </block>      
     </view>
   </scroll-view>
