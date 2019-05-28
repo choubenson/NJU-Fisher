@@ -1,5 +1,9 @@
 <view class='holder'>
-  <scroll-view id='scrollView' scroll-top>
+  <view class="nullHint" hidden="{{!isEmpty}}">
+    <image class="nullHintImage" src="/images/detail/kulian.png" mode='aspectFit'></image>
+    <view class='nullHintMsg' >商品已下架...</view>
+  </view>
+  <scroll-view id='scrollView' scroll-top hidden='{{isEmpty}}'>
     <view class='box'>
       <image class='avatar' src='{{commodity.avatar}}'></image>
       <view id='otherInfo'>
@@ -18,8 +22,8 @@
     <view class='box' id='contactInfo'>
       <text class='normalText'>联系方式： {{commodity.contactNumber}}</text>
       <view class='label' id='contactLabel'>{{commodity.contactWay}}</view>
-      <view wx:if='{{commodity.state == 0}}' class='isSold label'>未售出</view>
-      <view wx:elif='{{commodity.state == 1}}' class='isSold label'>已售出</view>
+      <view wx:if='{{commodity.state == 0}}' class='isSold label state0'>未售出</view>
+      <view wx:elif='{{commodity.state == 1}}' class='isSold label state1'>已售出</view>
     </view>
     <view class='box' id='introduce'>
       <view class='box' id='prices'>

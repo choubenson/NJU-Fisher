@@ -144,7 +144,6 @@ swiper {
   border-radius:35rpx;
   background-color: white;
   border:#d3289a solid 1rpx;
-  
   font-size: 20rpx;
   color: black;
   display: inline;
@@ -193,6 +192,6 @@ swiper {
   
 }
 .nullHintMsg{
-  margin-left: 285rpx;
+  margin-left: 291rpx;
   margin-top: 30rpx;
 }

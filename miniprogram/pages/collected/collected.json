@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "已收藏",
-  "usingComponents": {}
+  "usingComponents": {},
+  "enablePullDownRefresh": true
 }

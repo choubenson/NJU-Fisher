@@ -164,8 +164,121 @@ Page({
   onUnload: function () {
     // 生命周期函数--监听页面卸载
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh:async function () {
     // 页面相关事件处理函数--监听用户下拉动作
+    var tabIndex=this.data.currentTab;
+    this.systemType()
+    app = getApp()
+    openId = app.globalData.openId
+    console.log("openId is " + openId);
+    temp=this.data.items;
+    temp2=this.data.items_soldout;
+    currentIndex = 0;
+    currentIndex2 = 0;
+    const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
+    const db = wx.cloud.database();
+    console.log("tableIndex is "+tabIndex);
+    
+      console.log("tableIndex is " + tabIndex);
+      temp = [];
+      
+      totalSize = 0;
+      await db.collection('shangpin').where({ _openid: openId, state: 0 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
+        totalSize = res.total;
+
+      })
+
+      console.log("unSold totalSize is " + totalSize);
+
+      // 计算需分几次取
+      const batchTimes = Math.ceil(totalSize / 10);
+      // 承载所有读操作的 promise 的数组
+
+      for (i = 0; i < batchTimes; i++) {
+        if (i != 0) {
+          await db.collection('shangpin').where({ _openid: openId, state: 0 }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+            temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
+          })
+        }
+        else {
+          await db.collection('shangpin').where({ _openid: openId, state: 0 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+            temp.push(res.data);
+          })
+        }
+      }
+      
+      
+    
+      console.log("tableIndex is " + tabIndex);
+      totalSize2 = 0;
+      temp2 = [];
+      await db.collection('shangpin').where({ _openid: openId, state: 1 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
+        totalSize2 = res.total;
+      })
+
+      console.log("Soldout totalSize2 is " + totalSize2);
+
+      // 计算需分几次取
+      const batchTimes2 = Math.ceil(totalSize2 / 10);
+      // 承载所有读操作的 promise 的数组
+
+      for (let j = 0; j < batchTimes2; j++) {
+        if (j != 0) {
+          await db.collection('shangpin').where({ _openid: openId, state: 1 }).skip(j * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+            temp2.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
+          })
+        }
+        else {
+          await db.collection('shangpin').where({ _openid: openId, state: 1 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+            temp2.push(res.data);
+          })
+        }
+      }
+      
+      
+    
+    console.log(temp);
+    console.log(temp2);
+    console.log("currentIndex is "+currentIndex)
+    console.log("currentIndex2 is "+currentIndex2)
+    
+    if (temp.length != 0 && temp2.length != 0) {
+      console.log("I am Here!!!")
+      this.setData({
+        items: temp[currentIndex],
+        items_soldout: temp2[currentIndex2],
+        loading: false,
+
+      })
+    }
+    else if (temp.length != 0) {
+      this.setData({
+        items: temp[currentIndex],
+        items_soldout:[],
+        isEmpty2: true,
+        loading: false,
+
+      })
+    }
+    else if (temp2.length != 0) {
+      this.setData({
+        isEmpty1: true,
+        items:[],
+        items_soldout: temp2[currentIndex2],
+        loading: false,
+
+      })
+    }
+    else {
+      console.log("Hii!!")
+      this.setData({ isEmpty1: true, isEmpty2: true, loading: false, items:[],items_soldout:[]})
+    }
+
+
+    
+    currentIndex = currentIndex + 1;
+    currentIndex2 = currentIndex2 + 1;
+
   },
   onReachBottom: function () {
     // 页面上拉触底事件的处理函数
@@ -239,14 +352,15 @@ Page({
   },
 
 //商品下架
-  deleteGoods: function () {
+  deleteGoods: function (e) {
     wx.showModal({
       title: '提示',
       content: '确定要下架该商品吗？',
       success: function (sm) {
         //用户点击了确定删除
         if (sm.confirm) {
-
+          const db = wx.cloud.database();
+          db.collection('shangpin').doc(e.currentTarget.id).remove();
         } else if (sm.cancel) {
           console.log('用户点击取消')
         }
@@ -260,12 +374,14 @@ Page({
       title: '提示',
       content: '已向买方确认，确定要完成该笔交易吗？',
       success: function (sm) {
-        //用户点击了确定删除
+        //用户点击了确定完成
         if (sm.confirm) {
-          const db = wx.cloud.database();
-          var commodityId=e.currentTarget.id;
-          console.log("commodityId is "+commodityId)
-          db.collection('shangpin').where({ _openid: openId, _id: commodityId})
+          wx.cloud.callFunction({
+            name: "confirmTrade",
+            data: {
+              commodityId: e.currentTarget.id
+            }
+          })
         } else if (sm.cancel) {
           console.log('用户点击取消')
         }
