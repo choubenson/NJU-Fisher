@@ -78,12 +78,12 @@ Page({
 
     for (i = 0; i < batchTimes; i++) {
       if (i != 0) {
-        await db.collection('shangpin').where({ _openid: openId, state: 0 }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+        await db.collection('shangpin').where({ _openid: openId, state: 0 }).orderBy('date','desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
           temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
         })
       }
       else {
-        await db.collection('shangpin').where({ _openid: openId, state: 0 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+        await db.collection('shangpin').where({ _openid: openId, state: 0 }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
           temp.push(res.data);
         })
       }
@@ -106,12 +106,12 @@ Page({
 
     for (let j = 0; j < batchTimes2; j++) {
       if (j != 0) {
-        await db.collection('shangpin').where({ _openid: openId, state: 1 }).skip(j * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+        await db.collection('shangpin').where({ _openid: openId, state: 1 }).orderBy('date', 'desc').skip(j * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
           temp2.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
         })
       }
       else {
-        await db.collection('shangpin').where({ _openid: openId, state: 1 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+        await db.collection('shangpin').where({ _openid: openId, state: 1 }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
           temp2.push(res.data);
         })
       }
@@ -183,7 +183,7 @@ Page({
       temp = [];
       
       totalSize = 0;
-      await db.collection('shangpin').where({ _openid: openId, state: 0 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
+    await db.collection('shangpin').where({ _openid: openId, state: 0 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
         totalSize = res.total;
 
       })
@@ -196,12 +196,12 @@ Page({
 
       for (i = 0; i < batchTimes; i++) {
         if (i != 0) {
-          await db.collection('shangpin').where({ _openid: openId, state: 0 }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+          await db.collection('shangpin').where({ _openid: openId, state: 0 }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
             temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
           })
         }
         else {
-          await db.collection('shangpin').where({ _openid: openId, state: 0 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+          await db.collection('shangpin').where({ _openid: openId, state: 0 }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
             temp.push(res.data);
           })
         }
@@ -224,12 +224,12 @@ Page({
 
       for (let j = 0; j < batchTimes2; j++) {
         if (j != 0) {
-          await db.collection('shangpin').where({ _openid: openId, state: 1 }).skip(j * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+          await db.collection('shangpin').where({ _openid: openId, state: 1 }).orderBy('date', 'desc').skip(j * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
             temp2.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
           })
         }
         else {
-          await db.collection('shangpin').where({ _openid: openId, state: 1 }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+          await db.collection('shangpin').where({ _openid: openId, state: 1 }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
             temp2.push(res.data);
           })
         }
