@@ -255,7 +255,7 @@ Page({
   },
 
   //完成订单交易
-  finishTrade:function(){
+  finishTrade:function(e){
     wx.showModal({
       title: '提示',
       content: '已向买方确认，确定要完成该笔交易吗？',
@@ -263,7 +263,9 @@ Page({
         //用户点击了确定删除
         if (sm.confirm) {
           const db = wx.cloud.database();
-          db.collection('shangpin').where({_openid:openId,})
+          var commodityId=e.currentTarget.id;
+          console.log("commodityId is "+commodityId)
+          db.collection('shangpin').where({ _openid: openId, _id: commodityId})
         } else if (sm.cancel) {
           console.log('用户点击取消')
         }

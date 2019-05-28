@@ -16,7 +16,7 @@
 
 
 #body_head1{
-  background-color: #8B008B;
+  background-color: #700270;
   height:160rpx;
   max-width: 750rpx;
   padding-top: 20rpx;

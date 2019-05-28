@@ -28,7 +28,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({ fontColor1: '#848582', fontColor2:'#848582'})
   },
 
   /**
@@ -64,5 +64,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onTap1:function(){
+    this.setData({ fontColor1: '#8B008B'})
+  },
+  onTap2: function () {
+    this.setData({ fontColor2: '#8B008B' })
   }
 })

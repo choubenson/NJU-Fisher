@@ -13,7 +13,7 @@
     <swiper-item>
       <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
         <view id="body_container">
-          <view class="nullHint" hidden="{{!isEmpty}}">
+          <view class="nullHint" hidden="{{!isEmpty1}}">
             <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
             <view class='nullHintMsg' >空空的"盒子"...</view>
           </view>
@@ -28,9 +28,9 @@
                   <view class="money_view">
                     <view class="itemNewPrice">￥{{item.presentPrice}}</view>
                     <view class="itemOldPrice">￥{{item.originPrice}}</view>
-                    <button id="modify" catchtap='modify' class="button1" hover-stop-propagation='true' hover-class='onPress'>修改</button>
+                    <button id="modify" catchtap='modify' class="button1" hover-stop-propagation='true' hover-class='onPress' >修改</button>
                     <button id="deleteGoods" catchtap='deleteGoods' class="button2" hover-stop-propagation='true' hover-class='onPress'>下架</button>
-                    <button id="finish"  class="button3" catchtap='finishTrade' hover-stop-propagation='true' hover-class='onPress'>完成</button>
+                    <button id="{{item._id}}"  class="button3" catchtap='finishTrade' hover-stop-propagation='true' hover-class='onPress'  >完成</button>
                     
                   </view>
                 </view>
@@ -45,7 +45,7 @@
     <swiper-item>
       <scroll-view class="body" style="height: 100%;" scroll-y="true" enable-back-to-top="true" bindscrolltolower="ReachBottom">
         <view id="body_container">
-          <view class="nullHint" hidden="{{!isEmpty}}">
+          <view class="nullHint" hidden="{{!isEmpty2}}">
             <image class="nullHintImage" src="/images/shouye/hezi.png" mode='aspectFit'></image>
             <view class='nullHintMsg' >空空的"盒子"...</view>
           </view>
