@@ -18,8 +18,8 @@
     <view class='box' id='contactInfo'>
       <text class='normalText'>联系方式： {{commodity.contactNumber}}</text>
       <view class='label' id='contactLabel'>{{commodity.contactWay}}</view>
-      <view wx:if='{{commodity.state == 0}}' class='isSold label'>未售出</view>
-      <view wx:elif='{{commodity.state == 1}}' class='isSold label'>已售出</view>
+      <view wx:if='{{commodity.state == 0}}' class='isSold label state0'>未售出</view>
+      <view wx:elif='{{commodity.state == 1}}' class='isSold label state1'>已售出</view>
     </view>
     <view class='box' id='introduce'>
       <view class='box' id='prices'>

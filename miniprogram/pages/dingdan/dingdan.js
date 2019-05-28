@@ -239,14 +239,15 @@ Page({
   },
 
 //商品下架
-  deleteGoods: function () {
+  deleteGoods: function (e) {
     wx.showModal({
       title: '提示',
       content: '确定要下架该商品吗？',
       success: function (sm) {
         //用户点击了确定删除
         if (sm.confirm) {
-
+          const db = wx.cloud.database();
+          db.collection('shangpin').doc(e.currentTarget.id).remove();
         } else if (sm.cancel) {
           console.log('用户点击取消')
         }
@@ -255,15 +256,19 @@ Page({
   },
 
   //完成订单交易
-  finishTrade:function(){
+  finishTrade:function(e){
     wx.showModal({
       title: '提示',
       content: '已向买方确认，确定要完成该笔交易吗？',
       success: function (sm) {
-        //用户点击了确定删除
+        //用户点击了确定完成
         if (sm.confirm) {
-          const db = wx.cloud.database();
-          db.collection('shangpin').where({_openid:openId,})
+          wx.cloud.callFunction({
+            name: "confirmTrade",
+            data: {
+              commodityId: e.currentTarget.id
+            }
+          })
         } else if (sm.cancel) {
           console.log('用户点击取消')
         }
