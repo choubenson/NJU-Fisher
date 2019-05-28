@@ -27,88 +27,47 @@ Page({
   onLoad:async function (options) {
     app = getApp();
     openId = app.globalData.openId;
-    console.log(options.itemType);
-    currentIndex = 0;
     totalSize = 0;
-    console.log(app)
-    //openid = app.globalData.openId;
-    console.log("openId1 is " + app.globalData.openId)
-    console.log("openId2 is " + openId)
-
     temp = this.data.items;
     const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
     var shoucang = [];
     const db = wx.cloud.database();
-    var ComIdArr = [];
     const _ = db.command
-
-    console.log("openId is :" + openId);
     await db.collection('shoucang').where({ _openid: openId }).count().then(res => { //获取数据库中shoucang集合该用户收藏记录的总共数目
       totalSize = res.total;
     })
-
-    console.log("totalSize is " + totalSize);
-
     // 计算需分几次取
     const batchTimes = Math.ceil(totalSize / 10);
     // 承载所有读操作的 promise 的数组
-    console.log("batchTimes is " + batchTimes);
     for (i = 0; i < batchTimes; i++) {
       if (i != 0) {
-        shoucang = [];
-        ComIdArr = [];
-        console.log("Here is if!")
-        await db.collection('shoucang').where({ _openid: openId }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+        //不是第一次从数据库拿数据，需要跳过前10*i条
+        await db.collection('shoucang').where({ _openid: openId }).orderBy('date','desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => { 
           shoucang = res.data;
-
-        })
-        console.log(shoucang);
-        for (let j = 0; j < shoucang.length; j++) {
-          ComIdArr.push((shoucang)[j].commodityId);
-        }
-        console.log(ComIdArr);
-        await db.collection("shangpin").where({ _id: _.in(ComIdArr) }).get().then(res => {
-          console.log(res.data);
-          temp.push(res.data);
         })
       }
+      //若是第一次从数据库拿数据，则不需要跳过前10*i条，因此没有skip()，该函数参数不能为0
       else {
-        console.log("Here is else!")
-        console.log(shoucang)
-        await db.collection('shoucang').where({ _openid: openId }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
-          console.log("In else openId is " + openId)
+        await db.collection('shoucang').where({ _openid: openId }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { 
           shoucang = res.data;
-
         })
-        console.log(shoucang);
-        for (let j = 0; j < shoucang.length; j++) {
-          ComIdArr.push((shoucang)[j].commodityId);
-        }
-        console.log(ComIdArr);
-        await db.collection("shangpin").where({ _id: _.in(ComIdArr) }).get().then(res => {
-          console.log(res.data);
-          temp.push(res.data);
-        })
-
+      }
+      for (let j = 0; j < shoucang.length; j++) {
+        await db.collection('shangpin').where({ _id: shoucang[j].commodityId}).get().then(
+          res =>{
+            temp.push(res.data[0])
+          });
       }
     }
-    console.log("Here is outside for!")
-    console.log(temp);
-    console.log("currentIndex is " + currentIndex);
     if (temp.length != 0) {
       this.setData({
-        items: temp[currentIndex],
+        items: temp,
         loading: false,
-
       })
     }
     else {
       this.setData({ isEmpty: true, loading: false })
     }
-
-    currentIndex = currentIndex + 1;
-
-
   },
   
   /**
@@ -144,89 +103,47 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh:async function () {
-    app = getApp();
-    openId = app.globalData.openId;
-    
-    currentIndex = 0;
     totalSize = 0;
-    console.log(app)
-    //openid = app.globalData.openId;
-    console.log("openId1 is " + app.globalData.openId)
-    console.log("openId2 is " + openId)
-
     temp = [];
     const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
     var shoucang = [];
     const db = wx.cloud.database();
-    var ComIdArr = [];
     const _ = db.command
-
-    console.log("openId is :" + openId);
     await db.collection('shoucang').where({ _openid: openId }).count().then(res => { //获取数据库中shoucang集合该用户收藏记录的总共数目
       totalSize = res.total;
     })
-
-    console.log("totalSize is " + totalSize);
-
     // 计算需分几次取
     const batchTimes = Math.ceil(totalSize / 10);
     // 承载所有读操作的 promise 的数组
-    console.log("batchTimes is " + batchTimes);
     for (i = 0; i < batchTimes; i++) {
       if (i != 0) {
-        shoucang = [];
-        ComIdArr = [];
-        console.log("Here is if!")
-        await db.collection('shoucang').where({ _openid: openId }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+        //不是第一次从数据库拿数据，需要跳过前10*i条
+        await db.collection('shoucang').where({ _openid: openId }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
           shoucang = res.data;
-
-        })
-        console.log(shoucang);
-        for (let j = 0; j < shoucang.length; j++) {
-          ComIdArr.push((shoucang)[j].commodityId);
-        }
-        console.log(ComIdArr);
-        await db.collection("shangpin").where({ _id: _.in(ComIdArr) }).get().then(res => {
-          console.log(res.data);
-          temp.push(res.data);
         })
       }
+      //若是第一次从数据库拿数据，则不需要跳过前10*i条，因此没有skip()，该函数参数不能为0
       else {
-        console.log("Here is else!")
-        console.log(shoucang)
-        await db.collection('shoucang').where({ _openid: openId }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
-          console.log("In else openId is " + openId)
+        await db.collection('shoucang').where({ _openid: openId }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => {
           shoucang = res.data;
-
         })
-        console.log(shoucang);
-        for (let j = 0; j < shoucang.length; j++) {
-          ComIdArr.push((shoucang)[j].commodityId);
-        }
-        console.log(ComIdArr);
-        await db.collection("shangpin").where({ _id: _.in(ComIdArr) }).get().then(res => {
-          console.log(res.data);
-          temp.push(res.data);
-        })
-
+      }
+      for (let j = 0; j < shoucang.length; j++) {
+        await db.collection('shangpin').where({ _id: shoucang[j].commodityId }).get().then(
+          res => {
+            temp.push(res.data[0])
+          });
       }
     }
-    console.log("Here is outside for!")
-    console.log(temp);
-    console.log("currentIndex is " + currentIndex);
     if (temp.length != 0) {
       this.setData({
-        items: temp[currentIndex],
+        items: temp,
         loading: false,
-
       })
     }
     else {
-      this.setData({ isEmpty: true, loading: false,items:[] })
+      this.setData({ isEmpty: true, loading: false })
     }
-
-    currentIndex = currentIndex + 1;
-
   },
 
   /**

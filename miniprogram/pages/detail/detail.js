@@ -20,7 +20,8 @@ Page({
     if (this.data.isLike == 0){      
       db.collection('shoucang').add({
         data: {
-          commodityId: this.data.commodity._id
+          commodityId: this.data.commodity._id,
+          date: new Date()
         }
       });
       this.setData({ likesrc: '/images/detail/heart_red.png' });
