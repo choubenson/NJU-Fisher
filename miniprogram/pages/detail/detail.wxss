@@ -121,14 +121,31 @@
 }
 #itemDetail{
   text-indent: 56rpx;
+  width:670rpx;
   margin-top: 15rpx;
   margin-left: 36rpx;
   margin-right: 36rpx;
-  margin-bottom: 15rpx;
+  margin-bottom: 19rpx;
 }
 .detailImg{
   
   width: 680rpx;
   margin-left: 25rpx;
   margin-right: 25rpx;
+  margin-bottom: 10rpx;
+}
+.nullHint{
+  font-size: 30rpx;
+  color:#808080;
+  margin-top: 400rpx;
+}
+.nullHintImage{
+  max-width: 120rpx;
+  max-height: 120rpx;
+  margin-left: 315rpx;
+  
+}
+.nullHintMsg{
+  margin-left: 285rpx;
+  margin-top: 30rpx;
 }

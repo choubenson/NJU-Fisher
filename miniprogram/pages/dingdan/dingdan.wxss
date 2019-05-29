@@ -21,7 +21,7 @@
 
 swiper {
   
-  background: #dfdfdf;
+ 
   display: flex;
 }
 
@@ -192,6 +192,6 @@ swiper {
   
 }
 .nullHintMsg{
-  margin-left: 285rpx;
+  margin-left: 291rpx;
   margin-top: 30rpx;
 }
