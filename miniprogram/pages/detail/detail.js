@@ -10,9 +10,10 @@ Page({
 
     },
     isLike: 0,
-    likesrc: '/images/detail/heart_grey.png'
+    likesrc: '/images/detail/heart_grey.png',
+    avatarUrl: '/images/common/user-unlogin.png'
   },
-
+  //点击收藏按钮
   likeButtonTap: function(e){
     //获取云数据库
     const db = wx.cloud.database();
@@ -50,12 +51,6 @@ Page({
     //获取用户openid
     var app = getApp();
     this.setData({openId: app.globalData.openId})
-    // await wx.cloud.callFunction({
-    //   name: 'getId',
-    //   complete: res => {
-    //     this.setData({openId: res.result.openid});
-    //   }
-    // });
     //加载商品信息和商品发布者的openid
     await db.collection('shangpin').doc(options._id).get().then(
       res => {
