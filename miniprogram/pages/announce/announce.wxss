@@ -62,6 +62,11 @@ page{
 .page-section2{
   margin-top: 25rpx;
 }
+.item-picture{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 .contact-method{
   display: flex;
   flex-direction: row;
@@ -96,6 +101,9 @@ page{
 #gulou{
   margin-left:8rpx;
   border-radius: 50%;
+}
+#image{
+  padding: 8rpx;
 }
 checkbox .wx-checkbox-input {
   width: 30rpx;

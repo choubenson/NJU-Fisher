@@ -11,9 +11,9 @@ Page({
     },
     isLike: 0,
     likesrc: '/images/detail/heart_grey.png',
-    isEmpty: false,
+    avatarUrl: '/images/common/user-unlogin.png'
   },
-
+  //点击收藏按钮
   likeButtonTap: function(e){
     //获取云数据库
     const db = wx.cloud.database();
@@ -21,7 +21,8 @@ Page({
     if (this.data.isLike == 0){      
       db.collection('shoucang').add({
         data: {
-          commodityId: this.data.commodity._id
+          commodityId: this.data.commodity._id,
+          date: new Date()
         }
       });
       this.setData({ likesrc: '/images/detail/heart_red.png' });
@@ -49,24 +50,13 @@ Page({
 
     //获取云数据库
     const db = wx.cloud.database();
-    var n = await db.collection("shangpin").where({ _id: options._id }).count()
-    console.log(n.total)
-    if(n.total==0){
-      console.log('III')
-      this.setData({isEmpty:true})
-    }
-
+    const dbShangPin = db.collection('shangpin');
+    const dbShouCang = db.collection('shoucang');
     //获取用户openid
     var app = getApp();
     this.setData({openId: app.globalData.openId})
-    // await wx.cloud.callFunction({
-    //   name: 'getId',
-    //   complete: res => {
-    //     this.setData({openId: res.result.openid});
-    //   }
-    // });
     //加载商品信息和商品发布者的openid
-    await db.collection('shangpin').doc(options._id).get().then(
+    await dbShangPin.doc(options._id).get().then(
       res => {
         this.setData({ commodity: res.data });
         var d = new Date(this.data.commodity.date);
@@ -78,7 +68,7 @@ Page({
       }
     );
     //加载用户收藏信息
-    var n = await db.collection('shoucang').where({
+    var n = await dbShouCang.where({
       _openid: this.data.openId,
       commodityId: this.data.commodity._id
     }).count();
@@ -88,7 +78,7 @@ Page({
     else
       this.setData({ likesrc: '/images/detail/heart_grey.png' }); 
     //加载该商品发布者已发布数量信息
-    await db.collection('shangpin').where({
+    await dbShangPin.where({
       _openid: this.data.commodity._openid
     }).count().then(
       res => {
@@ -96,9 +86,7 @@ Page({
           hasSold: res.total
         });
       }
-    ); 
-    
-
+    );       
   },
 
   /**

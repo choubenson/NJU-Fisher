@@ -3,9 +3,11 @@
 <view class="container">
 
   <view class="search">
-    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder'></input>
+    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder'
+    focus='true' bindinput="getInput"></input>
   </view>
-  <view hidden="{{loading}}" class="hintMsg">以下是"{{type}}"的搜索结果~ :) </view>
+  <view hidden="{{loading}}" class="hintMsg">以下是"{{inputValue}}"的搜索结果~ :) </view>
+
 
   <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
 

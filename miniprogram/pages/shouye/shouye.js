@@ -172,7 +172,12 @@ Page({
     })
     index=index+1;
     console.log('index is '+index);
-  }
+  },
+  sousuo: function () {
+    wx.navigateTo({
+      url: '/pages/sousuo/sousuo',
+    })
+  },
 
 })
 

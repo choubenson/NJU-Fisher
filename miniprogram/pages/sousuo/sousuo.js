@@ -13,55 +13,17 @@ Page({
   data: {
     itemDetailUrl: '/pages/detail/detail',
     items: [],
-    loading: true,
-    type: ""
+    loading: false,
+    inputValue: "", //存放输入的字符串
+    inputEle: [], //将输入拆解为数组储存起来
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    console.log(options.itemType);
-    currentIndex = 0;
-    totalSize = 0;
-
-    var itemType = options.itemType;
-    temp = this.data.items;
-    const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
-    const db = wx.cloud.database();
-
-    await db.collection('shangpin').where({ type: itemType }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
-      totalSize = res.total;
-    })
-
-    console.log("totalSize is " + totalSize);
-
-    // 计算需分几次取
-    const batchTimes = Math.ceil(totalSize / 10);
-    // 承载所有读操作的 promise 的数组
-    console.log("batchTimes is " + batchTimes);
-    for (i = 0; i < batchTimes; i++) {
-      if (i != 0) {
-        await db.collection('shangpin').where({ type: itemType }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
-          temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
-        })
-      }
-      else {
-        await db.collection('shangpin').where({ type: itemType }).limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
-          temp.push(res.data);
-        })
-      }
-    }
-    console.log(temp);
-    console.log("currentIndex is " + currentIndex);
-    this.setData({
-      items: temp[currentIndex],
-      loading: false,
-      type: itemType
-    })
-    currentIndex = currentIndex + 1;
-
-
+  
+   
   },
 
   /**
@@ -102,7 +64,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: async function () {
+  onReachBottom:  function () {
     const MAX_LIMIT = 10; //一次最多获取10条商品记录
     this.setData({ loading: true });
 
@@ -110,10 +72,10 @@ Page({
 
     if (temp[currentIndex] != null) {
       for (let i = 0; i < temp[currentIndex].length; i++) {
-        itemArr.push(temp[currentIndex][i]);
+        if (temp[currentIndex][i] != null) { 
+          itemArr.push(temp[currentIndex][i]);
+        }        
       }
-
-      console.log("Bottom currentIndex is " + currentIndex);
 
       this.setData({
         items: itemArr,
@@ -134,5 +96,124 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //去除关键词所有空格
+  Trim: function(str){
+    return str.replace(/\s/g, "");
+  },
+  
+  //将正则表达式转换为字符串
+  replace: function (str) {
+    return str.replace(/(^.)|(.$)/g, "");
+  },
+  
+  //获取输入
+  getInput: function(e){
+    this.setData({
+      inputValue: this.Trim(e.detail.value),
+    })
+    if (this.data.inputValue != "") {
+      var str = "" + this.data.inputValue;
+      this.setData({
+        inputEle: str.split(""),
+      }) 
+      console.log(this.data.inputEle);
+      this.search();  //每次有效输入都会进行搜索
+    }
+    else{
+      this.setData({
+        items: [],
+      })
+    } 
+  },
+
+  //进行搜索
+  search: async function(){
+    this.setData({
+      loading: true,
+      items: [],
+    })
+    currentIndex = 0;
+    
+    const db = wx.cloud.database();
+    const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
+    temp = [];
+    
+    //关键词进行搜索的格式,含有输入字符串的项将会被搜索到(可以不连续)，大小写不敏感
+    if(this.data.inputEle.length != 1){
+      var key = new RegExp(".*" + this.data.inputEle[0]);
+      for (i = 1; i < this.data.inputEle.length; i++) {
+        var key_1 = key + "";
+        key_1 = this.replace(key_1);
+        if (i != this.data.inputEle.length - 1) {
+          key = new RegExp(key_1 + ".*" + this.data.inputEle[i]);
+        }
+        else {
+          key = new RegExp(key_1 + ".*" + this.data.inputEle[i] + ".*", "i");
+        }
+      }
+    }
+    else{
+      var key = new RegExp(".*" + this.data.inputEle[0], "i");
+    }
+    
+
+    await db.collection('shangpin').count().then(res => { //获取数据库中shangpin集合记录的总共数目
+      totalSize = res.total;
+    })
+
+    // 计算需分几次取
+    const batchTimes = Math.ceil(totalSize / 10);
+    for (i = 0; i < batchTimes; i++) {
+      if (i != 0) {
+        await db.collection('shangpin').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+          temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
+        })
+      }
+      else {
+        await db.collection('shangpin').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+          temp.push(res.data);
+        })
+      }
+    }
+    
+    var temp_2 = [];    //将匹配项存入该数组
+    var match = false;  //有无匹配项
+    for (i = 0; i < temp.length; i++) {
+      for (j = 0; j < temp[i].length; j++) {
+        if (key.test(temp[i][j].title)) {
+          temp_2.push(temp[i][j]);
+          match = true;
+        }
+      }
+    }
+
+    var arr = new Array();  //转回二维数组
+    var s = 0;
+    for (var i = 0; i < Math.ceil(temp_2.length / 10); i++) {
+      arr[i] = new Array(i);
+      for (var j = 0; j < MAX_LIMIT; j++) {
+        if (s < temp_2.length) {
+          arr[i][j] = temp_2[s];
+          s++
+        }
+      }
+    }
+    temp = arr;
+
+    if(match){  //有匹配项
+      this.setData({
+        items: temp[currentIndex],
+        loading: false,
+      }) 
+    }
+    else{  //无匹配项
+      this.setData({
+        items: [],
+        loading: false,
+      }) 
+    }
+    currentIndex = currentIndex + 1;   
   }
 })

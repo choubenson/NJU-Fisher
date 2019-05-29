@@ -2,7 +2,8 @@
 
 <view class="container">
   <view class="search" bind>
-    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder'></input>
+    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder' bindtap='sousuo'></input>
+
   </view>
   <scroll-view class="body" scroll-y="true" enable-back-to-top="true" >
     <view id="body_head1">
