@@ -48,11 +48,13 @@ Page({
   onLoad: async function (options) {
     //获取云数据库
     const db = wx.cloud.database();
+    const dbShangPin = db.collection('shangpin');
+    const dbShouCang = db.collection('shoucang');
     //获取用户openid
     var app = getApp();
     this.setData({openId: app.globalData.openId})
     //加载商品信息和商品发布者的openid
-    await db.collection('shangpin').doc(options._id).get().then(
+    await dbShangPin.doc(options._id).get().then(
       res => {
         this.setData({ commodity: res.data });
         var d = new Date(this.data.commodity.date);
@@ -64,7 +66,7 @@ Page({
       }
     );
     //加载用户收藏信息
-    var n = await db.collection('shoucang').where({
+    var n = await dbShouCang.where({
       _openid: this.data.openId,
       commodityId: this.data.commodity._id
     }).count();
@@ -74,7 +76,7 @@ Page({
     else
       this.setData({ likesrc: '/images/detail/heart_grey.png' }); 
     //加载该商品发布者已发布数量信息
-    await db.collection('shangpin').where({
+    await dbShangPin.where({
       _openid: this.data.commodity._openid
     }).count().then(
       res => {
