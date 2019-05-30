@@ -4,6 +4,7 @@ var index = 0;
 var totalSize=0;
 var currentIndex=0;
 
+
 var temp=[];   //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
 
 Page({
@@ -39,7 +40,7 @@ Page({
     const batchTimes = Math.ceil(totalSize / 10);
     // 承载所有读操作的 promise 的数组
     
-    for (i = 0; i < batchTimes; i++) {
+    for (var i = 0; i < batchTimes; i++) {
       if(i!=0){  
         await db.collection('shangpin').where({ state: 0 }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {   
           temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
@@ -50,7 +51,12 @@ Page({
           temp.push(res.data);  
         })
       }
+      for (j = 0; j < temp[i].length; j++) {
+        temp[i][j].commodityPictures.sort()
+      }
     }
+    
+
     console.log(temp);
     this.setData({
       items: temp[currentIndex],
@@ -92,8 +98,57 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh:async function () {
+    this.setData({ loading: false })
 
+    currentIndex = 0;
+    totalSize = 0;
+    temp = [];
+    const MAX_LIMIT = 10;  //一次最多获取十条商品记录数据
+    const db = wx.cloud.database();
+
+    await db.collection('shangpin').where({ state: 0 }).count().then(res => { //获取数据库中shangpin集合记录的总共数目
+      totalSize = res.total;
+    })
+
+    console.log("totalSize is " + totalSize);
+
+    // 计算需分几次取
+    const batchTimes = Math.ceil(totalSize / 10);
+    // 承载所有读操作的 promise 的数组
+
+    for (var i = 0; i < batchTimes; i++) {
+      if (i != 0) {
+        await db.collection('shangpin').where({ state: 0 }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
+          temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
+        })
+      }
+      else {
+        await db.collection('shangpin').where({ state: 0 }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
+          temp.push(res.data);
+        })
+      }
+      for (j = 0; j < temp[i].length; j++) {
+        temp[i][j].commodityPictures.sort()
+      }
+    }
+    
+    console.log(temp);
+    if(temp.length!=0){
+      this.setData({
+        items: temp[currentIndex],
+        loading: false
+      })
+    }
+    else{
+      this.setData({
+        items: [],
+        loading: false
+      })
+    }
+
+    
+    currentIndex = currentIndex + 1;
   },
 
   /**

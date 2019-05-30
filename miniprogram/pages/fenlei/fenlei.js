@@ -53,7 +53,11 @@ Page({
           temp.push(res.data);
         })
       }
+      for (j = 0; j < temp[i].length; j++) {
+        temp[i][j].commodityPictures.sort()
+      }
     }
+    
     console.log(temp);
     console.log("currentIndex is "+currentIndex);
     if (temp.length != 0){

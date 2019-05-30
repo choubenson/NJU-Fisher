@@ -17,6 +17,7 @@ Page({
     result: false,
     inputValue: "", //存放输入的字符串
     inputEle: [], //将输入拆解为数组储存起来
+    isEmpty: false,
   },
 
   /**
@@ -212,6 +213,7 @@ Page({
         items: temp[currentIndex],
         loading: false,
         result: true,
+        isEmpty:false
       }) 
     }
     else{  //无匹配项
@@ -219,6 +221,7 @@ Page({
         items: [],
         loading: false,
         result: true,
+        isEmpty:true
       }) 
     }
     currentIndex = currentIndex + 1;   

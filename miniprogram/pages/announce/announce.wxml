@@ -3,34 +3,38 @@
   <form bindsubmit='formsubmit' bindreset='formreset'>
   <view class='page-section'>
     <view class="item-title">
-      <input placeholder='标题' placeholder-class='input-placeholder' name='title'></input>
+      <input placeholder='标题' placeholder-class='input-placeholder' name='title' value='{{title}}'></input>
     </view>
   </view>
 
   <view class='page-section'>
     <view class="detail">
-    <textarea class="detailTA" placeholder='请详细描述物品' placeholder-class='input-placeholder' maxlength='-1' value='' name='detail' auto-height='true'></textarea>
-    </view>
-
-    <view class='item-picture'>
-      <block wx:for='{{imgArray}}' wx:key='{{item.id}}'>
-        <image src='{{item}}' mode='aspectFit' id='image' bindlongpress='deletePicture' data-index='{{index}}'></image>
-      </block>
-    </view>
-
-    <view class='plus-button'>
-      <image id='tianjiaImage' src='/images/announce/tianjia.png' bindtap='addPicture'></image>
+      <textarea class="detailTA" placeholder='请详细描述物品' placeholder-class='input-placeholder' maxlength='-1' value='{{detail}}' name='detail' auto-height='true'></textarea>
     </view>
 
     
+    <scroll-view scroll-x class='item-picture'>
+      <view class='scroll-view-x'>
+        <block wx:for='{{imgArray}}' wx:key='{{item.id}}' class='picture-block'>
+        
+          <image src='{{item}}' mode='aspectFill' id='image' bindlongpress='deletePicture' data-index='{{index}}'></image>
+
+        </block>
+      </view>
+    </scroll-view>
+        
+
+      <view class='plus-button'>
+        <image id='tianjiaImage' src='/images/announce/tianjia.png' bindtap='addPicture'></image>
+      </view>
   </view>
 
   <view class='page-section'>
     <view class="price">
     <label for='price-input'>￥</label>
-    <input type="number" placeholder='希望的价格' placeholder-class='input-placeholder' id='price-input' value='' name='presentPrice'></input>
+    <input type="number" placeholder='希望的价格' placeholder-class='input-placeholder' id='price-input' value='{{presentPrice}}' name='presentPrice'></input>
     <label for='price-input'>￥</label>
-    <input type="number" placeholder='买入的价格' placeholder-class='input-placeholder' id='price-input' value='' name='originPrice'></input>
+    <input type="number" placeholder='买入的价格' placeholder-class='input-placeholder' id='price-input' value='{{originPrice}}' name='originPrice'></input>
     </view>
   </view>
 
@@ -39,7 +43,7 @@
       <picker value='{{contactIndex}}' range='{{contactArray}}' bindchange='bindPickerContactChange' name='contactWay'>
         <view class='contact-input'>{{contactArray[contactIndex]}} ▼ :</view>
       </picker>
-      <input placeholder='请填写{{contactArray[contactIndex]}}' placeholder-class='input-placeholder' value='' name='contactNumber'></input>
+      <input placeholder='请填写{{contactArray[contactIndex]}}' placeholder-class='input-placeholder' value='{{contactNumber}}' name='contactNumber'></input>
     </view>
   </view>
 
@@ -50,9 +54,9 @@
     </view>
     <checkbox-group name='campus'>
       <label for='xianlin'>仙林</label>
-      <checkbox id='xianlin' value='仙林'></checkbox>
+      <checkbox id='xianlin' value='仙林' checked='{{xianlinchecked}}'></checkbox>
      <label for='gulou'>鼓楼</label>
-     <checkbox id='gulou' value='鼓楼'></checkbox>
+     <checkbox id='gulou' value='鼓楼' checked='{{gulouchecked}}'></checkbox>
     </checkbox-group>
     </view>
   </view>

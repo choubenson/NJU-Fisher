@@ -9,22 +9,22 @@
     <view id="body_head1">
       <view id="body_head2">
         <navigator url="{{sousuoUrl}}?itemType=数码" class="classify_Nav">
-          <image class="classify_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
+          <image class="classify_image" src="/images/shouye/shuma3.png" mode='aspectFit'></image>
         </navigator>
         <navigator url="{{sousuoUrl}}?itemType=图书" class="classify_Nav">
-          <image class="classify_image" src="/images/shouye/tushu.png" mode='aspectFit'></image>
+          <image class="classify_image" src="/images/shouye/tushu2.png" mode='aspectFit'></image>
         </navigator>
         <navigator url="{{sousuoUrl}}?itemType=美妆" class="classify_Nav">
-          <image class="classify_image" src="/images/shouye/meizhuang.png" mode='aspectFit'></image>
+          <image class="classify_image" src="/images/shouye/meizhuang2.png" mode='aspectFit'></image>
         </navigator>
         <navigator url="{{sousuoUrl}}?itemType=游戏" class="classify_Nav">
-          <image class="classify_image" src="/images/shouye/youxi.png" mode='aspectFit'></image>
+          <image class="classify_image" src="/images/shouye/youxi2.png" mode='aspectFit'></image>
         </navigator>
         <navigator url="{{sousuoUrl}}?itemType=服饰" class="classify_Nav">
-          <image class="classify_image" src="/images/shouye/fushi.png" mode='aspectFit'></image>
+          <image class="classify_image" src="/images/shouye/fushi3.png" mode='aspectFit'></image>
         </navigator>
         <navigator url="{{sousuoUrl}}?itemType=生活" class="classify_Nav">
-          <image class="classify_image" src="/images/shouye/shenghuo.png" mode='aspectFit'></image>
+          <image class="classify_image" src="/images/shouye/shenghuo2.png" mode='aspectFit'></image>
         </navigator>
         <navigator url="{{sousuoUrl}}?itemType=其他" class="classify_Nav">
           <image class="classify_image" src="/images/shouye/qita.png" mode='aspectFit'></image>

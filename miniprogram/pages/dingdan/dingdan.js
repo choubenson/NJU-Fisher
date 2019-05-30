@@ -87,6 +87,9 @@ Page({
           temp.push(res.data);
         })
       }
+      for (j = 0; j < temp[i].length; j++) {
+        temp[i][j].commodityPictures.sort()
+      }
     }
     console.log(temp);
 
@@ -114,6 +117,9 @@ Page({
         await db.collection('shangpin').where({ _openid: openId, state: 1 }).orderBy('finishTime', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
           temp2.push(res.data);
         })
+      }
+      for (k = 0; k < temp[j].length; k++) {
+        temp[j][k].commodityPictures.sort()
       }
     }
     console.log(temp2);

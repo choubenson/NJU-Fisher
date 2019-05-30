@@ -134,7 +134,7 @@
   height:210rpx;
   background-color: white;
   display: flex;
-  margin-top: 10rpx;
+  margin-bottom: 10rpx;
   border-radius: 15rpx;
 }
 .item_image{

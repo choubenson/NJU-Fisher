@@ -62,11 +62,10 @@ page{
 .page-section2{
   margin-top: 25rpx;
 }
-.item-picture{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
+
+
+
+
 .contact-method{
   display: flex;
   flex-direction: row;
@@ -82,6 +81,7 @@ page{
   justify-content: flex-start;
   
   margin-top: 50rpx;
+  
 }
 #tianjiaImage{
   border-radius: 60rpx;
@@ -102,9 +102,7 @@ page{
   margin-left:8rpx;
   border-radius: 50%;
 }
-#image{
-  padding: 8rpx;
-}
+
 checkbox .wx-checkbox-input {
   width: 30rpx;
   height: 30rpx;
@@ -130,3 +128,14 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
   font-size:28rpx;
   margin-left: 5rpx;
 }
+#image{
+  height: 150rpx;
+  width: 150rpx;
+  margin: 10rpx;
+}
+
+.scroll-view-x{
+  padding-left: 60rpx;
+  
+}
+

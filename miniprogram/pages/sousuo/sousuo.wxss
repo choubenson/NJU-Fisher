@@ -19,11 +19,11 @@
   justify-content:center;
   align-items:center;
   margin-left: 10rpx;
-  font-size: 35rpx;
+  font-size: 28rpx;
   border-radius:35rpx;
-  background-color: rgb(221, 18, 177);
+  background-color:#8B008B;
   height: 60rpx;
-  font-weight:bold;
+  
   color: white;
 }
 
@@ -118,4 +118,19 @@
   margin-right: 10rpx;
   margin-bottom: 5rpx;
   background-color: rgba(105, 102, 102, 0.301);
+}
+.nullHint{
+  font-size: 30rpx;
+  color:#808080;
+  margin-top: 400rpx;
+}
+.nullHintImage{
+  max-width: 120rpx;
+  max-height: 120rpx;
+  margin-left: 315rpx;
+  
+}
+.nullHintMsg{
+  margin-left: 260rpx;
+  margin-top: 30rpx;
 }

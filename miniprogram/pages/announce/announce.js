@@ -11,8 +11,15 @@ Page({
     contactArray:['选择联系方式','QQ','微信','电话号码'],
     contactIndex:0,
     imgArray:[],
-    index:0
-    
+    index:0,
+    title:'',
+    detail:'',
+    presentPrice:'',
+    originPrice:'',
+    contactNumber:'',
+    xianlinchecked:false,
+    gulouchecked:false,
+
   },
 
   /**
@@ -139,100 +146,158 @@ Page({
   },
 
   formsubmit:async function(e){
-    var that=this
-    console.log('用户点击确认发布，现在进行提交！！！')
-    console.log(e.detail.value)
-    var finalData=e.detail.value
-    //获取用户id以及头像以及名字
-    var app=getApp()
-   
-    
-
-    //插入数据
-    console.log('开始插入数据')
-    const db=wx.cloud.database()
+    var that = this
+    const db = wx.cloud.database()
     var position;
-    if(finalData.campus.length==2){
-      position='仙林/鼓楼校区'
-    }else{
-      position=finalData.campus[0]+'校区'
+    var finalData = e.detail.value
+    var app = getApp()
+    var errorMsg;
+    var everythingFill=true;
+    //校验表单数据
+    if(finalData.title==''){
+      console.log('标题为空')
+      errorMsg='标题为空'
+      everythingFill=false
+    }else if(finalData.detail==''){
+      console.log('详情为空')
+      errorMsg='详情为空'
+      everythingFill = false
+    }else if(finalData.presentPrice==''){
+      console.log('希望价格为空')
+      errorMsg='希望价格为空'
+      everythingFill = false
+    }else if(finalData.originPrice==''){
+      console.log('原价为空')
+      errorMsg='原价为空'
+      everythingFill = false
+    } else if (finalData.contactWay == 0) {
+      console.log('未选择联系方式种类')
+      errorMsg='未选择联系方式种类'
+      everythingFill = false
+    }else if(finalData.contactNumber==''){
+      console.log('未填写联系方式')
+      errorMsg='未填写联系方式'
+      everythingFill = false
     }
-    await db.collection('shangpin').add({
-      //_id 由数据可自动分配
-      data:{
-        
-        avatar:app.globalData.userInfo.avatarUrl,
-        campus:position,
-        commodityPictures:[],
-        contactNumber:finalData.contactNumber,
-        contactWay:that.data.contactArray[finalData.contactWay],
-        date:new Date(),
-        detail:finalData.detail,
-        name:app.globalData.userInfo.nickName,
-        originPrice:finalData.originPrice,
-        presentPrice:finalData.presentPrice,
-        state:0,
-        title:finalData.title,
-        type:that.data.classArray[finalData.type],
-      },
-      success:async function(res){
-        console.log(res)
-        
-        var item_id=res._id;
-        //上传图片
-        const array = that.data.imgArray
-        
-        
-        console.log("array length is "+array.length)
-        console.log(array)
-        console.log('开始上传图片')
-        for (let i = 0; i < array.length; i++) {
-          console.log(array[i])
-          await wx.cloud.uploadFile({
-            cloudPath: 'images/' + item_id + '/' + i + '.jpg',
-            filePath: array[i],
-            success:async function (res) {
-              console.log("I am Here!!")
-              var id = res.fileID
-              console.log(id)
-              
-              //fileIdArray[i]=res.fileID
-              console.log("准备updateFileID!!")
+    else if(finalData.campus==''){
+      console.log('未选择校区')
+      errorMsg='为选择校区'
+      everythingFill = false
+    }
+    
+    if(everythingFill){
+      wx.showModal({
+        title: '确认发布',
+        content: '确定要发布了吗？',
+        success: async function (res) {
+          if (res.confirm) {
 
-
-              console.log("进入updateFileId!!")
-              console.log(item_id)
-              const _ = db.command
-              wx.cloud.database().collection('shangpin').doc(item_id).update({
-                data: {
-                  commodityPictures: _.unshift(id)
-                },
-                success: function (res) {            
-                  
-                  console.log(res.stats.updated)
-                },
-                fail: function (res) {
-                  
-                  console.error(res)
-                }
-              })
-              console.log("Finish Update!!!")
-            },
-            fail: function (res) {
-              console.log(res.errMsg)
+            console.log('用户点击确认发布，现在进行提交！！！')
+            //插入数据
+            console.log('开始插入数据')
+            if (finalData.campus.length == 2) {
+              position = '仙林/鼓楼校区'
+            } else {
+              position = finalData.campus[0] + '校区'
             }
-          })
+
+            await db.collection('shangpin').add({
+              //_id 由数据可自动分配
+              data: {
+
+                avatar: app.globalData.userInfo.avatarUrl,
+                campus: position,
+                commodityPictures: [],
+                contactNumber: finalData.contactNumber,
+                contactWay: that.data.contactArray[finalData.contactWay],
+                date: new Date(),
+                detail: finalData.detail,
+                name: app.globalData.userInfo.nickName,
+                originPrice: finalData.originPrice,
+                presentPrice: finalData.presentPrice,
+                state: 0,
+                title: finalData.title,
+                type: that.data.classArray[finalData.type],
+              },
+              success: async function (res) {
+
+
+                console.log(res)
+
+                var item_id = res._id;
+                //上传图片
+                const array = that.data.imgArray
+                if(array.length==0){
+                  //如果未添加图片
+                }
+                for (let i = 0; i < array.length; i++) {
+                  console.log(array[i])
+                  await wx.cloud.uploadFile({
+                    cloudPath: 'images/' + item_id + '/' + i + '.jpg',
+                    filePath: array[i],
+                    success: async function (res) {
+                      var id = res.fileID
+                      console.log(item_id)
+                      const _ = db.command
+                      await wx.cloud.database().collection('shangpin').doc(item_id).update({
+                        data: {
+                          commodityPictures: _.unshift(id)
+                        },
+                        success: function (res) {
+                          console.log('更新数据库图片地址成功')
+                        },
+                        fail: function (res) {
+                          console.log("更新数据库图片地址失败")
+                          console.error(res)
+                        }
+                      })
+                      console.log("Finish Update!!!")
+                    },
+                    fail: function (res) {
+                      console.log('上传图片失败')
+                      console.log(res.errMsg)
+                    }
+                  })
+                }
+                //完成数据提交以及图片上传
+                //显示toast以及清空页面
+                wx.showToast({
+                  title: '发布成功',
+                  success: function (res) {
+                    console.log('开始清空页面')
+                    that.setData({
+                      title: '',
+                      detail: '',
+                      originPrice: '',
+                      presentPrice: '',
+                      contactNumber: '',
+                      xianlinchecked: false,
+                      gulouchecked: false,
+                      imgArray: [],
+                      contactIndex: 0,
+                      classIndex: 0,
+                    })
+                  },
+                })
+              }
+            })
+
+
+
+          } else if (res.cancel) {
+            console.log("用户点击取消按钮")
+          }
+        },
+        fail: function (res) {
+          console.log('Modal接口调用失败!')
         }
-        //sss = [fileIdArray[0], fileIdArray[1], fileIdArray[2]]
-        //更新数据库中的图片地址
-        
-      
-      
-
-
-        
-      }
-    })
+      }) 
+    }else{
+      wx.showToast({
+        title: errorMsg,
+        icon:'none',
+      })
+    }
   },
 
 })

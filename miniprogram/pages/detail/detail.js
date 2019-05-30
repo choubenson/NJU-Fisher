@@ -7,9 +7,10 @@ Page({
    */
   data: {   
     commodity:{
-
+    
     },
     isLike: 0,
+    isEmpty:false,
     likesrc: '/images/detail/heart_grey.png',
     avatarUrl: '/images/common/user-unlogin.png'
   },
@@ -50,6 +51,11 @@ Page({
 
     //获取云数据库
     const db = wx.cloud.database();
+    //判断是否下架
+    var n = await db.collection("shangpin").where({ _id: options._id }).count()
+    if (n.total == 0) {
+      this.setData({ isEmpty: true })
+    }
     const dbShangPin = db.collection('shangpin');
     const dbShouCang = db.collection('shoucang');
     //获取用户openid
@@ -69,6 +75,7 @@ Page({
           'commodity.commodityPictures': this.data.commodity.commodityPictures.sort()});
       }
     );
+    console.log(this.data.commodity.commodityPictures)
     //加载用户收藏信息
     var n = await dbShouCang.where({
       _openid: this.data.openId,
