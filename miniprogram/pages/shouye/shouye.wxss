@@ -3,20 +3,27 @@
 .search{
   width: 90%;
   height:50rpx;
-  margin-left: 10rpx;
-  margin-right: 10rpx;
-  margin-top: 15rpx;
-  margin-bottom: 15rpx;
+  margin-left: 25rpx;
+  /* margin-top: 15rpx;
+  margin-bottom: 15rpx; */
   border:1px solid #A9A9A9;
   border-radius: 20rpx;
   padding-left: 20rpx;
-  paddding-top:5rpx;
   padding-bottom:5rpx;
+  background-color: white;
 }
-
-
+.inputContainer{
+  padding-top: 15rpx;
+  padding-bottom: 15rpx; 
+  width: 750rpx;
+  background-color: #8b008b;
+}
+#body_container{
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+}
 #body_head1{
-  background-color: #700270;
+  background: linear-gradient(#8b008b, #f6f6f6);
   height:160rpx;
   max-width: 750rpx;
   padding-top: 20rpx;

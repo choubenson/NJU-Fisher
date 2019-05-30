@@ -1,12 +1,13 @@
 <!--miniprogram/pages/shouye/shouye.wxml-->
 
-<view class="container">
-  <view class="search" bind>
-    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder' bindtap='sousuo'></input>
-
-  </view>
+<view class="allContainer">
+  <view class='inputContainer'>
+    <view class="search">
+      <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder' bindtap='sousuo'></input>
+    </view> 
+  </view>    
   <scroll-view class="body" scroll-y="true" enable-back-to-top="true" >
-    <view id="body_head1">
+    <view id="body_head1">   
       <view id="body_head2">
         <navigator url="{{sousuoUrl}}?itemType=数码" class="classify_Nav">
           <image class="classify_image" src="/images/shouye/shuma3.png" mode='aspectFit'></image>
