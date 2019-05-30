@@ -41,7 +41,7 @@ Page({
     
     for (i = 0; i < batchTimes; i++) {
       if(i!=0){  
-        await db.collection('shangpin').where({ state: 0 }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {   
+        await db.collection('shangpin').where({ state: 0 }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => { 
           temp.push(res.data);  //把数据库shangpin集合里的所有数据以十条为单位放入temp数组里，即temp里每个元素又是一个个长度为10的数组，其中最后一个长度可能不为10
         })
       }
@@ -49,6 +49,9 @@ Page({
         await db.collection('shangpin').where({ state: 0 }).orderBy('date', 'desc').limit(MAX_LIMIT).get().then(res => { //若是第一次从数据库拿数据，则不需要跳过前10条，因此没有skip()，该函数参数不能为0
           temp.push(res.data);  
         })
+      }
+      for (j = 0; j<temp[i].length ; j++){
+        temp[i][j].commodityPictures.sort()
       }
     }
     console.log(temp);
