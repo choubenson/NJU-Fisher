@@ -1,12 +1,14 @@
 <!--miniprogram/pages/sousuo/sousuo.wxml-->
 
 <view class="container">
-
-  <view class="search">
-    <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder'
-    focus='true' bindinput="getInput"></input>
+  <view class='display'>
+    <view class="search">
+      <input id="input1" type="text" maxlength='-1' placeholder-class='input-placeholder'
+      focus='true' bindinput="getInput" bindconfirm='clickButton'></input>
+    </view>
+    <button class = 'searchButton' bindtap='clickButton'>搜索</button>
   </view>
-  <view hidden="{{loading}}" class="hintMsg">以下是"{{inputValue}}"的搜索结果~ :) </view>
+  <view hidden="{{!result}}" class="hintMsg">以下是"{{inputValue}}"的搜索结果~ :) </view>
 
 
   <scroll-view class="body" scroll-y="true" enable-back-to-top="true">
