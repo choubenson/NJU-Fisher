@@ -53,7 +53,7 @@
       <block hidden="{{loading}}" wx:for="{{items}}" wx:key>
         <navigator url='{{itemDetailUrl}}?_id={{item._id}}'>
           <view class="itemlist"> 
-            <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFit'></image>
+            <image class="item_image" src="{{item.commodityPictures[0]}}" mode='aspectFill'></image>
             <view class='item_view'>
               <view class="itemTitle">{{item.title}}</view>
               <view class="campus_view">{{item.campus}}</view>

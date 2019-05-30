@@ -1,5 +1,7 @@
+
 Page({
 
+  
   /**
    * 页面的初始数据
    */
@@ -136,15 +138,14 @@ Page({
     })
   },
 
-  formsubmit:function(e){
-    
+  formsubmit:async function(e){
     var that=this
-    console.log('用户点击确认发布')
+    console.log('用户点击确认发布，现在进行提交！！！')
     console.log(e.detail.value)
     var finalData=e.detail.value
     //获取用户id以及头像以及名字
     var app=getApp()
-    console.log('这是全局useInfo对象：'+app.globalData.userInfo)
+   
     
 
     //插入数据
@@ -152,17 +153,17 @@ Page({
     const db=wx.cloud.database()
     var position;
     if(finalData.campus.length==2){
-      position='仙林/鼓楼'
+      position='仙林/鼓楼校区'
     }else{
       position=finalData.campus[0]+'校区'
     }
-    db.collection('shangpin').add({
+    await db.collection('shangpin').add({
       //_id 由数据可自动分配
       data:{
         
         avatar:app.globalData.userInfo.avatarUrl,
         campus:position,
-        commodityPictures:['1','2'],
+        commodityPictures:[],
         contactNumber:finalData.contactNumber,
         contactWay:that.data.contactArray[finalData.contactWay],
         date:new Date(),
@@ -174,47 +175,56 @@ Page({
         title:finalData.title,
         type:that.data.classArray[finalData.type],
       },
-      success:function(res){
+      success:async function(res){
         console.log(res)
         
         var item_id=res._id;
         //上传图片
         const array = that.data.imgArray
-        const fileIdArray=[]
+        
+        
+        console.log("array length is "+array.length)
+        console.log(array)
         console.log('开始上传图片')
         for (let i = 0; i < array.length; i++) {
           console.log(array[i])
-          wx.cloud.uploadFile({
+          await wx.cloud.uploadFile({
             cloudPath: 'images/' + item_id + '/' + i + '.jpg',
             filePath: array[i],
-            success: function (res) {
-              console.log(res.fileID)
-              fileIdArray.push(res.fileID)
+            success:async function (res) {
+              console.log("I am Here!!")
+              var id = res.fileID
+              console.log(id)
               
+              //fileIdArray[i]=res.fileID
+              console.log("准备updateFileID!!")
+
+
+              console.log("进入updateFileId!!")
+              console.log(item_id)
+              const _ = db.command
+              wx.cloud.database().collection('shangpin').doc(item_id).update({
+                data: {
+                  commodityPictures: _.unshift(id)
+                },
+                success: function (res) {            
+                  
+                  console.log(res.stats.updated)
+                },
+                fail: function (res) {
+                  
+                  console.error(res)
+                }
+              })
+              console.log("Finish Update!!!")
             },
             fail: function (res) {
               console.log(res.errMsg)
             }
           })
         }
+        //sss = [fileIdArray[0], fileIdArray[1], fileIdArray[2]]
         //更新数据库中的图片地址
-        
-        console.log(item_id)
-        console.log(fileIdArray)
-        const _=db.command
-        wx.cloud.database().collection('shangpin').doc(item_id).update({
-          data: {
-            commodityPictures: _.set({fileIdArray})
-          },
-          success: function (res) {
-            console.log(fileIdArray)
-            console.log(res.stats.updated)
-          },
-          fail: function (res) {
-            console.log(fileIdArray)
-            console.error(res)
-          }
-        })
         
       
       
@@ -223,5 +233,6 @@ Page({
         
       }
     })
-  }
+  },
+
 })

@@ -10,7 +10,9 @@
 .box{
   max-width: 725rpx;
   background-color: #ffffff;
-  margin: 10rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  margin-top:4rpx;
   border: 1rpx solid #bbbbbb;
   border-radius: 10rpx;
   display: flex;
@@ -132,7 +134,7 @@
   width: 680rpx;
   margin-left: 25rpx;
   margin-right: 25rpx;
-  margin-bottom: 10rpx;
+  margin-bottom: 3rpx;
 }
 .nullHint{
   font-size: 30rpx;
