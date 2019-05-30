@@ -64,7 +64,9 @@ Page({
           '-' + (d.getMonth() + 1) +
           '-' + d.getDate() +
           ' ' + d.toTimeString().substring(0, 8);
-        this.setData({ 'commodity.date': dateStr });
+        this.setData({ 
+          'commodity.date': dateStr,
+          'commodity.commodityPictures': this.data.commodity.commodityPictures.sort()});
       }
     );
     //加载用户收藏信息

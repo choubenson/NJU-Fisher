@@ -1,16 +1,30 @@
 /* miniprogram/pages/sousuo/sousuo.wxss */
-.search{
-  width: 90%;
-  height:50rpx;
-  margin-left: 10rpx;
-  margin-right: 10rpx;
+.display{
+  display: flex;
   margin-top: 15rpx;
-  margin-bottom: 15rpx;
+}
+
+.search{
+  width: 550rpx;
+  height:50rpx;
   border:1px solid #A9A9A9;
   border-radius: 20rpx;
   padding-left: 20rpx;
   paddding-top:5rpx;
   padding-bottom:5rpx;
+}
+
+.searchButton{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  margin-left: 10rpx;
+  font-size: 35rpx;
+  border-radius:35rpx;
+  background-color: rgb(221, 18, 177);
+  height: 60rpx;
+  font-weight:bold;
+  color: white;
 }
 
 .hintMsg{

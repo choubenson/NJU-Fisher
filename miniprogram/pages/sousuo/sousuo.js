@@ -14,6 +14,7 @@ Page({
     itemDetailUrl: '/pages/detail/detail',
     items: [],
     loading: false,
+    result: false,
     inputValue: "", //存放输入的字符串
     inputEle: [], //将输入拆解为数组储存起来
   },
@@ -112,16 +113,20 @@ Page({
   getInput: function(e){
     this.setData({
       inputValue: this.Trim(e.detail.value),
+      result: false,
     })
+  },
+
+  //点击搜索
+  clickButton: function(){
     if (this.data.inputValue != "") {
       var str = "" + this.data.inputValue;
       this.setData({
         inputEle: str.split(""),
-      }) 
-      console.log(this.data.inputEle);
+      })
       this.search();  //每次有效输入都会进行搜索
     }
-    else{
+    else {
       this.setData({
         items: [],
       })
@@ -206,12 +211,14 @@ Page({
       this.setData({
         items: temp[currentIndex],
         loading: false,
+        result: true,
       }) 
     }
     else{  //无匹配项
       this.setData({
         items: [],
         loading: false,
+        result: true,
       }) 
     }
     currentIndex = currentIndex + 1;   
