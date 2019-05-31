@@ -1,1 +1,141 @@
-/* pages/modify/modify.wxss */
+
+.price{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+
+  height: 50rpx;
+}
+.detail{
+  height: 450rpx;
+  width:100%;
+  margin-bottom: 20rpx;
+}
+.detailTA{
+  width:100%;
+}
+
+.item-title{
+  height: 50rpx;
+  
+  
+  
+}
+
+.position{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  
+}
+.whole-page{
+  height: 100%;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  
+}
+page{
+  height: 100%;
+  width: 690rpx;
+  margin: 30rpx;
+}
+#position-text{
+  
+  font-size: 10;
+}
+.classification{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 13rpx;
+}
+.page-section{
+  /*border: 1px solid #af6e92;*/
+  border: 0.5rpx solid #bbbbbb;
+  padding: 25rpx;
+  background-color: white;
+  margin-bottom: 10rpx;
+  border-radius: 10rpx;
+}
+.page-section2{
+  margin-top: 25rpx;
+}
+
+
+
+
+.contact-method{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+.plus-button{
+
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: flex-start;
+  
+  margin-top: 50rpx;
+  
+}
+#tianjiaImage{
+  border-radius: 60rpx;
+  width:60rpx;
+  height:60rpx;
+  margin-left: 550rpx;
+}
+.submitButton{
+  background-color:#700270;
+  color: white;
+  border-radius:30rpx;
+}
+#xianlin{
+  margin-left:8rpx;
+  border-radius: 50%;
+}
+#gulou{
+  margin-left:8rpx;
+  border-radius: 50%;
+}
+
+checkbox .wx-checkbox-input {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 20rpx;
+}
+/*checkbox选中后样式  */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background: #FF525C;
+}
+/*checkbox选中后图标样式  */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #fff;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
+.input-placeholder{
+  font-size:28rpx;
+  margin-left: 5rpx;
+}
+#image{
+  height: 150rpx;
+  width: 150rpx;
+  margin: 10rpx;
+}
+
+.scroll-view-x{
+  padding-left: 60rpx;
+  
+}
+
