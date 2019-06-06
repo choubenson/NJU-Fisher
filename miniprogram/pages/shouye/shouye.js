@@ -196,38 +196,7 @@ Page({
   },
   
 
-  myTap:function(){
-    
-    const db = wx.cloud.database();
-    db.collection('shangpin').add({  //此处db是数据库对象引用，之后出现db也是
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
-        _id:index.toString(),
-        avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558549019684&di=c088a76717a4371831c8bcf8b7b6a230&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170629%2Ff5fb766788344a3eb900cda8b62d504a.png"
-,
-        campus:'鼓楼校区',
-        commodityPictures: ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558549019684&di=c088a76717a4371831c8bcf8b7b6a230&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170629%2Ff5fb766788344a3eb900cda8b62d504a.png", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558549019684&di=c088a76717a4371831c8bcf8b7b6a230&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20170629%2Ff5fb766788344a3eb900cda8b62d504a.png"
-],
-        contactNumber:2027178562,
-        contactWay:"QQ",
-        date:new Date(),
-        detail:'测试详情测试详情测试详情测试详情',
-        name:"Benson",
-        originPrice:79,
-        presentPrice:30,
-        state:0,
-        title:"《Java从入门到精通》"+index,
-        type:"图书"
-      },
-      success(res) {
-        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log(res)
-      }
-    })
-    index=index+1;
-    console.log('index is '+index);
-  },
+  
   sousuo: function () {
     wx.navigateTo({
       url: '/pages/sousuo/sousuo',

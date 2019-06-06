@@ -130,8 +130,8 @@
   margin-bottom: 19rpx;
 }
 .detailImg{
-  
-  width: 680rpx;
+  /* height: min-content; */
+  min-width: 680rpx; 
   margin-left: 25rpx;
   margin-right: 25rpx;
   margin-bottom: 3rpx;

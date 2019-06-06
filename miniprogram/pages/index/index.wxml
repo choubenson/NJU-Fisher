@@ -1,18 +1,18 @@
 <!--index.wxml-->
-<view id="container">
+<view id="container" >
   <view class="userinfo1">
-  <image src='../../images/index/background.jpg' id='background'>      
-  </image>
-  <block wx:if="{{!hasUserInfo && canIUse}}">
-    <button open-type="getUserInfo" bindgetuserinfo='getUserInfo' 
-    id='button_login'>使用微信登陆</button>
-  </block>    
-  <block wx:else>
-    <image class="userinfo-avatar1" 
-    src="{{userInfo.avatarUrl}}" mode="cover"></image>
-    <text class="userinfo-nickname1">{{userInfo.nickName}}</text>
-    <text bindtap='bindViewTap' id='enter'>进入交易平台</text>
-  </block>
-  <image src='../../images/index/bottom.jpg' id='bottom'></image>  
+    <image src='../../images/index/background.jpg' id='background'>      
+    </image>
+    <block wx:if="{{!hasUserInfo && canIUse}}">
+      <button open-type="getUserInfo" bindgetuserinfo='getUserInfo' 
+      id='button_login'>使用微信登陆</button>
+    </block>    
+    <block wx:else>
+      <image class="userinfo-avatar1" 
+      src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname1">{{userInfo.nickName}}</text>
+      <text bindtap='bindViewTap' id='enter'>进入NJU-Fisher</text>
+    </block>
+    <image src='../../images/index/bottom.jpg' id='bottom'></image>  
   </view>
 </view>

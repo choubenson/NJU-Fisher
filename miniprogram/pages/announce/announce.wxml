@@ -17,7 +17,7 @@
       <view class='scroll-view-x'>
         <block wx:for='{{imgArray}}' wx:key='{{item.id}}' class='picture-block'>
         
-          <image src='{{item}}' mode='aspectFill' id='image' bindlongpress='deletePicture' data-index='{{index}}'></image>
+          <image src='{{item}}' mode='aspectFill' id='image' bindlongpress='deletePicture' data-index='{{index}}' bindtap='previewImg'></image>
 
         </block>
       </view>

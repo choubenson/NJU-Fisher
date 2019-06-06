@@ -1,2 +1,81 @@
-<!--pages/modify/modify.wxml-->
-<text>pages/modify/modify.wxml</text>
+<view class="whole-page">
+
+  <form bindsubmit='formsubmit' bindreset='formreset'>
+  <view class='page-section'>
+    <view class="item-title">
+      <input placeholder='标题' placeholder-class='input-placeholder' name='title' value='{{title}}'></input>
+    </view>
+  </view>
+
+  <view class='page-section'>
+    <view class="detail">
+      <textarea class="detailTA" placeholder='请详细描述物品' placeholder-class='input-placeholder' maxlength='-1' value='{{detail}}' name='detail' auto-height='true'></textarea>
+    </view>
+
+    
+    <scroll-view scroll-x class='item-picture'>
+      <view class='scroll-view-x'>
+        <block wx:for='{{imgArray}}' wx:key='{{item.id}}' class='picture-block'>
+        
+          <image src='{{item}}' mode='aspectFill' id='image' bindtap='previewImg' data-index='{{index}} '></image>
+
+        </block>
+      </view>
+    </scroll-view>
+        
+        <!--
+      <view class='plus-button'>
+        <image id='tianjiaImage' src='/images/announce/tianjia.png' bindtap='addPicture'></image>
+      </view>
+      -->
+  </view>
+
+  <view class='page-section'>
+    <view class="price">
+    <label for='price-input'>￥</label>
+    <input type="number" placeholder='希望的价格' placeholder-class='input-placeholder' id='price-input' value='{{presentPrice}}' name='presentPrice'></input>
+    <label for='price-input'>￥</label>
+    <input type="number" placeholder='买入的价格' placeholder-class='input-placeholder' id='price-input' value='{{originPrice}}' name='originPrice'></input>
+    </view>
+  </view>
+
+  <view class='page-section'>
+    <view class='contact-method'>
+      <picker value='{{contactIndex}}' range='{{contactArray}}' bindchange='bindPickerContactChange' name='contactWay'>
+        <view class='contact-input'>{{contactArray[contactIndex]}} ▼ :</view>
+      </picker>
+      <input placeholder='请填写{{contactArray[contactIndex]}}' placeholder-class='input-placeholder' value='{{contactNumber}}' name='contactNumber'></input>
+    </view>
+  </view>
+
+  <view class='page-section'>
+    <view class='position'>
+    <view id='position-text'>
+      <text>所处校区:</text>
+    </view>
+    <checkbox-group name='campus'>
+      <label for='xianlin'>仙林</label>
+      <checkbox id='xianlin' value='仙林' checked='{{xianlinchecked}}'></checkbox>
+     <label for='gulou'>鼓楼</label>
+     <checkbox id='gulou' value='鼓楼' checked='{{gulouchecked}}'></checkbox>
+    </checkbox-group>
+    </view>
+  </view>
+  
+  <view class='page-section'>
+    <view class='classification'>
+      <view class='classification-label'>物品种类:</view>
+      <picker value="{{classIndex}}" range="{{classArray}}" bindchange='bindPickerClassChange' name='type'>
+        <view class='classification-input'>{{classArray[classIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class='page-section2'>
+    <view class='finish-bottom'>
+      <button class='submitButton'  form-type='submit'>确认发布</button>
+    </view>
+  </view>
+  </form>
+
+</view>

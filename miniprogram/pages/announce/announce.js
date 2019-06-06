@@ -229,6 +229,11 @@ Page({
                 const array = that.data.imgArray
                 if(array.length==0){
                   //如果未添加图片
+                  await wx.cloud.database().collection('shangpin').doc(item_id).update({
+                    data: {
+                      commodityPictures:wx.cloud.database().command.unshift('cloud://benson-swllb.6265-benson-swllb/u=1782428337,2090066779&fm=26&gp=0.jpg')
+                    },
+                })
                 }
                 for (let i = 0; i < array.length; i++) {
                   console.log(array[i])
@@ -299,5 +304,17 @@ Page({
       })
     }
   },
+  previewImg: function (e) {
+    console.log(e.currentTarget.dataset.index);
+    var index = e.currentTarget.dataset.index;
+    var imgArr = this.data.imgArray;
+    wx.previewImage({
+      current: imgArr[index],     //当前图片地址
+      urls: imgArr,               //所有要预览的图片的地址集合 数组形式
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  }
 
 })

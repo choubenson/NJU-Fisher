@@ -5,6 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    contactArray: ['选择联系方式', 'QQ', '微信', '电话号码'],
+    classArray: ['数码', '图书', '美妆', '游戏', '服饰', '生活', '其他'],
+    classIndex:0,
+    contactIndex:0,
+    itemId:'',
+    title:'',
+    detail:'',
+    presentPrice:'',
+    originPrice:'',
+    xianlinchecked:false,
+    gulouchecked:false,
+    contactNumber:'',
+    imgArray:[],
+    
+    
+
 
   },
 
@@ -12,21 +28,99 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("modify commodityid is "+options._id)
+    var that=this
+    this.setData({
+      itemId:options._id,
+    })
+
+    //获取数据库中原本的数据
+    const db=wx.cloud.database()
+    db.collection('shangpin').doc(options._id).get({
+      success:async function(res){
+        console.log(res.data)
+        var itemData=res.data
+        
+
+        
+        
+        
+        //开始恢复数据
+        that.setData({
+          title: itemData.title,
+          detail: itemData.detail,
+          originPrice: itemData.originPrice,
+          presentPrice: itemData.presentPrice,
+          contactNumber: itemData.contactNumber,
+          imgArray:itemData.commodityPictures.sort(),
+          
+        })
+        
+        
+        //恢复校区
+        if(itemData.campus=='仙林/鼓楼校区'){
+          that.setData({
+            xianlinchecked:true,
+            gulouchecked:true,
+          })
+        }else if(itemData.campus=='仙林校区'){
+          that.setData({
+            xianlinchecked:true,
+            gulouchecked:false,
+          })
+        }else if(itemData.campus=='鼓楼校区'){
+          that.setData({
+            xianlinchecked:false,
+            gulouchecked:true,
+          })
+        }
+        //恢复物品种类
+        var typeIndex=0
+        for(let i=0;i<that.data.classArray.length;i++){
+          if(itemData.type==that.data.classArray[i]){
+            typeIndex=i
+            break
+          }
+        }
+        that.setData({
+          classIndex:typeIndex,
+        })
+        //恢复联系方式种类
+        var contactIndex=0
+        for(let i=0;i<that.data.contactArray.length;i++){
+          if(itemData.contactWay==that.data.contactArray[i]){
+            contactIndex=i
+            break
+          }
+        }
+        that.setData({
+          contactIndex:contactIndex,
+         
+          
+        })
+        
+        
+        
+      
+
+      },
+      fail:function(res){
+        console.log('获取数据库信息失败')
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
@@ -62,5 +156,129 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  
+  
+  
+  bindPickerClassChange: function (e) {
+    
+    this.setData({
+      classIndex: e.detail.value
+    })
+  },
+  bindPickerContactChange: function (e) {
+    
+    this.setData({
+      contactIndex: e.detail.value
+    })
+  },
+  formsubmit:function(e){
+    const db=wx.cloud.database()
+    var that=this
+    var finalData=e.detail.value
+    console.log(finalData)
+    //校验表单数据
+    var errorMsg;
+    var everythingFill = true;
+    if (finalData.title == '') {
+      console.log('标题为空')
+      errorMsg = '标题为空'
+      everythingFill = false
+    } else if (finalData.detail == '') {
+      console.log('详情为空')
+      errorMsg = '详情为空'
+      everythingFill = false
+    } else if (finalData.presentPrice == '') {
+      console.log('希望价格为空')
+      errorMsg = '希望价格为空'
+      everythingFill = false
+    } else if (finalData.originPrice == '') {
+      console.log('原价为空')
+      errorMsg = '原价为空'
+      everythingFill = false
+    } else if (finalData.contactWay == 0) {
+      console.log('未选择联系方式种类')
+      errorMsg = '未选择联系方式种类'
+      everythingFill = false
+    } else if (finalData.contactNumber == '') {
+      console.log('未填写联系方式')
+      errorMsg = '未填写联系方式'
+      everythingFill = false
+    }
+    else if (finalData.campus == '') {
+      console.log('未选择校区')
+      errorMsg = '为选择校区'
+      everythingFill = false
+    }
+    
+
+    wx.showModal({
+      title: '确认发布',
+      content: '确定要修改信息吗？',
+      success:async function(res){
+        if(res.confirm){
+          
+          //校区
+          var position
+          if (finalData.campus.length == 2) {
+            position = '仙林/鼓楼'
+          } else if (finalData.campus[0] == '仙林') {
+            position = '仙林'
+          } else if (finalData.campus[0] == '鼓楼') {
+            position = '鼓楼'
+          }
+          position = position + '校区'
+
+          //更新数据库
+          const db = wx.cloud.database()
+          await db.collection('shangpin').doc(that.data.itemId).update({
+            data: {
+              title: finalData.title,
+              detail: finalData.detail,
+              originPrice: finalData.originPrice,
+              presentPrice: finalData.presentPrice,
+              contactNumber: finalData.contactNumber,
+              type: that.data.classArray[finalData.type],
+              contactWay: that.data.contactArray[finalData.contactWay],
+              campus: position,
+            },
+            success: function (res) {
+              wx.showToast({
+                title: '发布成功',
+                success: function (res) {
+                  wx.navigateBack({
+                    delta: 1,
+                  })
+                },
+                fail: function (res) {
+                  console.log('调用toast接口失败')
+                }
+              })
+            },
+          }) 
+          
+        }else if(res.cancel){
+          
+          console.log('用户点击取消')
+        }
+      },
+      fail:function(res){
+        console.log('调用modal接口失败！')
+      }
+    })
+    
+  },
+  previewImg: function (e) {
+    var index = e.currentTarget.dataset.index.substring(0,1);
+    var imgArr = this.data.imgArray;
+    console.log('index is '+index);
+    wx.previewImage({
+      current: imgArr[index],     //当前图片地址
+      urls: imgArr,               //所有要预览的图片的地址集合 数组形式
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  
 })
