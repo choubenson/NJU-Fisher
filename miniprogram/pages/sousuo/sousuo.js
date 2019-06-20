@@ -182,6 +182,9 @@ Page({
           temp.push(res.data);
         })
       }
+      for (j = 0; j < temp[i].length; j++) {
+        temp[i][j].commodityPictures.sort()
+      }
     }
     
     var temp_2 = [];    //将匹配项存入该数组

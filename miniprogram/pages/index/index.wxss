@@ -8,31 +8,38 @@
   padding: 200rpx 0;
   padding-top: 0rpx;
   box-sizing: border-box;
+
 }
 
+
 #background {
-  width: 750rpx;
+  
+  width: 760rpx;
   height: 283rpx;
 }
 
 #bottom {
-  width: 750rpx;
+  width: 100%;
   height: 283rpx;
   position: fixed;
   bottom: 0px;
 }
 
 #button_login {
-  border-radius: 10rpx;
+  border-radius: 20rpx;
   background-color: #8B008B;
   color: #ffffff;
   margin-top: 150rpx;
+  z-index:11;
+
 }
 
 .userinfo1 {
   display: flex;
+  height: 1000rpx;
   flex-direction: column;
   align-items: center;
+  
 }
 
 .userinfo-avatar1 {
@@ -46,6 +53,7 @@
 .userinfo-nickname1 {
   color: #aaa;
   margin-bottom: 75rpx;
+  font-size:28rpx;
 }
 
 #enter{

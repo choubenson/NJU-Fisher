@@ -1,6 +1,6 @@
 <!--miniprogram/pages/shouye/shouye.wxml-->
 
-<view class="allContainer">
+<view class="container">
   <view class='inputContainer'>
     <view class="search">
       <input id="input1" type="text" placeholder='搜索' maxlength='-1' placeholder-class='input-placeholder' bindtap='sousuo'></input>
@@ -68,18 +68,7 @@
         </navigator>
       </block>
 
-      <view class="itemlist" bindtap='myTap'> 
-        <image class="item_image" src="/images/shouye/shuma.png" mode='aspectFit'></image>
-        <view class='item_view'>
-          <view class="itemTitle">Huawei Mate20 [128GB 6.4寸] 8成新 fff</view>
-          <view class="campus_view">仙林校区dd</view>
-          <view class="money_view">
-            <view class="itemNewPrice">￥998</view>
-            <view class="itemOldPrice">￥3000</view>
-            <view class="itemKind">数码</view>
-          </view>
-        </view>
-      </view>
+      
 
       
     

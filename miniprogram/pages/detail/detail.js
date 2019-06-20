@@ -47,7 +47,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-    console.log('id is ' + options._id)
 
     //获取云数据库
     const db = wx.cloud.database();
@@ -75,7 +74,6 @@ Page({
           'commodity.commodityPictures': this.data.commodity.commodityPictures.sort()});
       }
     );
-    console.log(this.data.commodity.commodityPictures)
     //加载用户收藏信息
     var n = await dbShouCang.where({
       _openid: this.data.openId,
@@ -143,7 +141,20 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (options) {
+    
+  },
+  previewImg: function (e) {
+    var imgstring = e.currentTarget.id;
+    var index = imgstring.substring(imgstring.length - 5, imgstring.length - 4);
+    var imgArr = this.data.commodity.commodityPictures;
+    wx.previewImage({
+      current: imgArr[index],    //当前图片地址
+      urls: imgArr,               //所有要预览的图片的地址集合 数组形式
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
   }
+
 })

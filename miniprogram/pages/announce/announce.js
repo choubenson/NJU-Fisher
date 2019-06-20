@@ -78,20 +78,17 @@ Page({
     
   },
   bindPickerClassChange: function(e){
-    console.log('classPicker发送选择改变，携带值为',e.detail.value)
     this.setData({
       classIndex:e.detail.value
     })
   },
   bindPickerContactChange:function(e){
-    console.log('contactPicker发送选择改变，携带值为',e.detail.value)
     this.setData({
       contactIndex:e.detail.value
     })
   },
 
   addPicture: function(){
-    console.log("添加图片")
     var that=this
     wx.chooseImage({
       
@@ -107,7 +104,6 @@ Page({
         })
       },
       fail:function(res){
-        console.log(res.errMsg);
         wx.showToast({
           title: '未取得照片',
           icon:'none',
@@ -118,13 +114,10 @@ Page({
   },
   deletePicture:function(e){
     var that=this
-    console.log('删除图片')
     wx.showActionSheet({
       itemList: ["删除该图片"],
       success:function(res){
-        console.log(res.tapIndex)
         var index = e.currentTarget.dataset.index
-        console.log('要删除的图片下标是:' + index)
         const array = that.data.imgArray
         array.splice(index,1)
         that.setData({
@@ -132,13 +125,12 @@ Page({
         })
       },
       fail:function(res){
-        console.log(res.errMsg)
+        console.error(res);
       }
     })
     
   },
   onGotUserInfo:function(e){
-    console.log(e.detail.userInfo)
 
     this.setData({
       userInfo:e.detail.userInfo
@@ -155,32 +147,25 @@ Page({
     var everythingFill=true;
     //校验表单数据
     if(finalData.title==''){
-      console.log('标题为空')
       errorMsg='标题为空'
       everythingFill=false
     }else if(finalData.detail==''){
-      console.log('详情为空')
       errorMsg='详情为空'
       everythingFill = false
     }else if(finalData.presentPrice==''){
-      console.log('希望价格为空')
       errorMsg='希望价格为空'
       everythingFill = false
     }else if(finalData.originPrice==''){
-      console.log('原价为空')
       errorMsg='原价为空'
       everythingFill = false
     } else if (finalData.contactWay == 0) {
-      console.log('未选择联系方式种类')
       errorMsg='未选择联系方式种类'
       everythingFill = false
     }else if(finalData.contactNumber==''){
-      console.log('未填写联系方式')
       errorMsg='未填写联系方式'
       everythingFill = false
     }
     else if(finalData.campus==''){
-      console.log('未选择校区')
       errorMsg='为选择校区'
       everythingFill = false
     }
@@ -192,9 +177,7 @@ Page({
         success: async function (res) {
           if (res.confirm) {
 
-            console.log('用户点击确认发布，现在进行提交！！！')
             //插入数据
-            console.log('开始插入数据')
             if (finalData.campus.length == 2) {
               position = '仙林/鼓楼校区'
             } else {
@@ -222,40 +205,38 @@ Page({
               success: async function (res) {
 
 
-                console.log(res)
 
                 var item_id = res._id;
                 //上传图片
                 const array = that.data.imgArray
                 if(array.length==0){
                   //如果未添加图片
+                  await wx.cloud.database().collection('shangpin').doc(item_id).update({
+                    data: {
+                      commodityPictures:wx.cloud.database().command.unshift('cloud://benson-swllb.6265-benson-swllb/u=1782428337,2090066779&fm=26&gp=0.jpg')
+                    },
+                })
                 }
                 for (let i = 0; i < array.length; i++) {
-                  console.log(array[i])
                   await wx.cloud.uploadFile({
                     cloudPath: 'images/' + item_id + '/' + i + '.jpg',
                     filePath: array[i],
                     success: async function (res) {
                       var id = res.fileID
-                      console.log(item_id)
                       const _ = db.command
                       await wx.cloud.database().collection('shangpin').doc(item_id).update({
                         data: {
                           commodityPictures: _.unshift(id)
                         },
                         success: function (res) {
-                          console.log('更新数据库图片地址成功')
                         },
                         fail: function (res) {
-                          console.log("更新数据库图片地址失败")
                           console.error(res)
                         }
                       })
-                      console.log("Finish Update!!!")
                     },
                     fail: function (res) {
-                      console.log('上传图片失败')
-                      console.log(res.errMsg)
+                      console.error(res);
                     }
                   })
                 }
@@ -264,7 +245,6 @@ Page({
                 wx.showToast({
                   title: '发布成功',
                   success: function (res) {
-                    console.log('开始清空页面')
                     that.setData({
                       title: '',
                       detail: '',
@@ -285,11 +265,10 @@ Page({
 
 
           } else if (res.cancel) {
-            console.log("用户点击取消按钮")
           }
         },
         fail: function (res) {
-          console.log('Modal接口调用失败!')
+          console.error(res)
         }
       }) 
     }else{
@@ -299,5 +278,16 @@ Page({
       })
     }
   },
+  previewImg: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var imgArr = this.data.imgArray;
+    wx.previewImage({
+      current: imgArr[index],     //当前图片地址
+      urls: imgArr,               //所有要预览的图片的地址集合 数组形式
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  }
 
 })

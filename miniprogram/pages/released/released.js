@@ -35,7 +35,6 @@ Page({
         totalSize = res.total;
       })
 
-      console.log("totalSize is " + totalSize);
 
       // 计算需分几次取
       const batchTimes = Math.ceil(totalSize / 10);
@@ -53,7 +52,6 @@ Page({
           })
         }
       }
-      console.log(temp);
       this.setData({
         items: temp[currentIndex],
         loading: false
@@ -65,7 +63,6 @@ Page({
         totalSize = res.total;
       })
 
-      console.log("totalSize is " + totalSize);
 
       // 计算需分几次取
       const batchTimes = Math.ceil(totalSize / 10);
@@ -83,7 +80,6 @@ Page({
           })
         }
       }
-      console.log(temp);
       this.setData({
         items: temp[currentIndex],
         loading: false
@@ -141,7 +137,6 @@ Page({
         itemArr.push(temp[currentIndex][i]);
       }
 
-      console.log("Bottom currentIndex is " + currentIndex);
 
       this.setData({
         items: itemArr,
@@ -191,7 +186,6 @@ Page({
         if (sm.confirm) {
                                 
         } else if (sm.cancel) {
-          console.log('用户点击取消')
         }
       }
     })    

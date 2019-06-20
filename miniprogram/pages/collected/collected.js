@@ -53,6 +53,7 @@ Page({
       for (let j = 0; j < shoucang.length && j < MAX_LIMIT; j++) {
         await db.collection('shangpin').where({ _id: shoucang[j].commodityId }).get().then(
           res => {
+            res.data[0].commodityPictures.sort()
             temp.push(res.data[0])
           });
       }
@@ -131,6 +132,7 @@ Page({
       for (let j = 0; j < shoucang.length && j < MAX_LIMIT; j++) {
         await db.collection('shangpin').where({ _id: shoucang[j].commodityId }).get().then(
           res => {
+            res.data[0].commodityPictures.sort()
             temp.push(res.data[0])
           });
       }
@@ -160,8 +162,6 @@ Page({
       for (let i = 0; i < MAX_LIMIT && i < (shoucang.length-MAX_LIMIT*currentIndex); i++) {
         itemArr.push(shoucang[currentIndex*MAX_LIMIT+i][0]);
       }
-
-      console.log("Bottom currentIndex is " + currentIndex);
 
       this.setData({
         items: itemArr,

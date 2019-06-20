@@ -23,7 +23,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad:async function (options) {
-    console.log(options.itemType);
     currentIndex=0;
     totalSize=0;
     
@@ -36,12 +35,10 @@ Page({
       totalSize = res.total;
     })
 
-    console.log("totalSize is " + totalSize);
 
     // 计算需分几次取
     const batchTimes = Math.ceil(totalSize / 10);
     // 承载所有读操作的 promise 的数组
-    console.log("batchTimes is "+batchTimes);
     for (i = 0; i < batchTimes; i++) {
       if (i != 0) {
         await db.collection('shangpin').where({ type: itemType, state: 0 }).orderBy('date', 'desc').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
@@ -58,8 +55,6 @@ Page({
       }
     }
     
-    console.log(temp);
-    console.log("currentIndex is "+currentIndex);
     if (temp.length != 0){
       this.setData({
         items: temp[currentIndex],
@@ -124,7 +119,6 @@ Page({
         itemArr.push(temp[currentIndex][i]);
       }
 
-      console.log("Bottom currentIndex is " + currentIndex);
 
       this.setData({
         items: itemArr,
